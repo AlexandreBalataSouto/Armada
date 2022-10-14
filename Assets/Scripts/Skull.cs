@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Skull : MonoBehaviour
 {
-    [SerializeField, Range(0f, 20f)] private float speed = 5f;
+    //Enemy
+    //Move to the left
 
+    [SerializeField, Range(0f, 20f)] private float speed = 5f;
 
     void FixedUpdate()
     {

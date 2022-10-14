@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 8f;
-    public bool isBulletEnemy = false;
+    //Bullet behaviour
+
+    public float speed = 8f; //Direction
+    public bool isBulletEnemy = false; //OnTriggerEnter2D
+    public float x = 0, y = 0; //Direction
+
 
     // Update is called once per frame
     void Update()
     {
-        if(isBulletEnemy == false)
-        {
-            transform.Translate(speed * Time.deltaTime, 0, 0);
-        }
-        else
-        {
-            transform.Translate((speed * Time.deltaTime) * -1, 0, 0);
-        }
-        
+        // Move bullet
+        transform.Translate(x * Time.deltaTime, y * Time.deltaTime, 0);
     }
 
+    /*Check if bullet collide to:
+     * Limit
+     * Enemy
+     * Player
+     */
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Limit")
@@ -37,6 +39,31 @@ public class Bullet : MonoBehaviour
         if (other.tag == "Player" && isBulletEnemy == true)
         {
             other.gameObject.SetActive(false);
+        }
+    }
+
+    /* Change direction base on the user:
+     * Player: right
+     * Enemy01(Spider): left
+     * Enemy02(Orb): all direction
+     */
+    public void Direction(string user, float xOther, float yOther)
+    {
+        switch(user)
+        {
+            case "Player":
+                x = speed;
+            break;
+
+            case "Enemy01":
+                x = speed * -1;
+            break;
+
+            case "Enemy02":
+                x = speed * xOther;
+                y = speed * yOther;
+            break;
+
         }
     }
 }

@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+ 
+    //Player controller duh...
 
-    private float x, y;
-    private Rigidbody2D rb;
-    private Transform body;
-    private GameObject bullet;
-    [SerializeField, Range(0f, 20f)] private float speed = 8f;
-
-    private Vector2 normal;
-
-    [SerializeField, Range(0f, 1f)]  private float fireRate = 0.5f;
-    private float nextFire = 0.0f;
+    private float x, y; //Move
+    private Transform body; //Move
+    private GameObject bullet; //Shoot
+    [SerializeField, Range(0f, 20f)] private float speed = 8f; //Move
+    [SerializeField, Range(0f, 1f)]  private float fireRate = 0.5f; //Shoot
+    private float nextFire = 0.0f; //Shoot
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         body = transform;
     }
 
@@ -34,6 +31,7 @@ public class PlayerController : MonoBehaviour
         Shoot();
     }
 
+    //Move player in any direction
     private void Move()
     {
         x = Input.GetAxisRaw("Horizontal");
@@ -49,22 +47,30 @@ public class PlayerController : MonoBehaviour
             body.position += new Vector3(0f, y * speed * Time.deltaTime, 0f);
         }
     }
+
+    //Shoot bullet
     private void Shoot()
     {
+        //When press space and rate of fire
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
         {
+            //Rate of fire
             nextFire = Time.time + fireRate;
 
+            //Get bullet
             bullet = ObjectPool.sharedInstance.GetPooledObject("Bullet");
 
             if (bullet != null)
             {
+                //Direction/Position who shoot/Activate
                 bullet.transform.position = transform.position;
+                bullet.GetComponent<Bullet>().Direction("Player", transform.position.x, transform.position.y);
                 bullet.SetActive(true);
             }
         }
     }
 
+    //Die if touch enemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")

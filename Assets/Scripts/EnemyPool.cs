@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
+    //Pool enemies
+
     public static EnemyPool sharedInstance;
     public List<GameObject> pooledObjects;
-    public GameObject skullToPool;
-    public GameObject groupSkullsToPool;
-    public GameObject spiderToPool;
-    public List<GameObject> spawnPoints;
+    public GameObject skullToPool; //Start
+    public GameObject groupSkullsToPool; //Start
+    public GameObject spiderToPool; //Start
+    public List<GameObject> spawnPoints; //SpawnEnemy
 
-    private GameObject enemy;
-    private int amount;
-
+    private GameObject enemy; //SpawnEnemy
+    private int amount; //Start
 
     private void Awake()
     {
@@ -26,23 +27,35 @@ public class EnemyPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Create list of GameObject
         pooledObjects = new List<GameObject>();
         GameObject tmp;
 
+        //Create Skull
         amount = 10;
-        for (int i = 0; i < amount; i++)
+        if(skullToPool != null)
         {
-            tmp = Instantiate(skullToPool, transform);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            for (int i = 0; i < amount; i++)
+            {
+                tmp = Instantiate(skullToPool, transform);
+                tmp.SetActive(false);
+                pooledObjects.Add(tmp);
+            }
         }
+
+        //Create Group Skulls
         amount = 5;
-        for (int i = 0; i < amount; i++)
+        if (groupSkullsToPool != null)
         {
-            tmp = Instantiate(groupSkullsToPool, transform);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            for (int i = 0; i < amount; i++)
+            {
+                tmp = Instantiate(groupSkullsToPool, transform);
+                tmp.SetActive(false);
+                pooledObjects.Add(tmp);
+            }
         }
+
+        //Create Spider
         /*
         amount = 1;
         for (int i = 0; i < amount; i++)
@@ -59,7 +72,7 @@ public class EnemyPool : MonoBehaviour
         StartCoroutine("SpawnEnemy");
     }
     
-
+    //Spawn the enemies in RANDOM spawn points
     IEnumerator SpawnEnemy()
     {
         int originalLength = pooledObjects.Count;

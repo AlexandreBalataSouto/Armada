@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class Spider : MonoBehaviour
 {
+    //Enemy
+    //Appear and start to moving in circles, each time that reach the top and bottom shoot
+
     [SerializeField, Range(0f, 20f)] private float speed = 3;
     [SerializeField, Range(0f, 20f)] private float angle = 0;
     [SerializeField, Range(0f, 20f)] private float radius = 1.8f;
     private bool isShooting = false;
     private GameObject bullet;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        Vector2 pos = transform.position;
 
+        //Move in circles
+        Vector2 pos = transform.position;
         angle += speed * Time.deltaTime; //if you want to switch direction, use -= instead of +=
         pos.x = Mathf.Cos(angle) * radius;
         pos.y = Mathf.Sin(angle) * radius;
-
         transform.position = pos;
+        //END Move in circles
 
-        if((FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 0f || FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 180f) && (isShooting == false))
+        //If is on top OR bottom and is NOT shooting then shoot
+        if ((FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 0f || FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 180f) && (isShooting == false))
         {
             isShooting = true;
             Shoot();
-        }
-
+        } 
+        //If is on left OR right and is shooting then stop shoot
         if ((FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 270f || FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 90f) && (isShooting == true))
         {
             isShooting = false;
         }
     }
 
+    //Return degree of the circle
     public static float FindDegree(float x, float y)
     {
         float value = (float)((Mathf.Atan2(x, y) / Mathf.PI) * 180f);
@@ -49,12 +49,14 @@ public class Spider : MonoBehaviour
 
     private void Shoot()
     {
-        
+        //Get bullet
         bullet = ObjectPool.sharedInstance.GetPooledObject("BulletEnemy");
 
         if (bullet != null)
         {
+            //Direction/Position who shoot/Activate
             bullet.transform.position = transform.position;
+            bullet.GetComponent<Bullet>().Direction("Enemy01", transform.position.x, transform.position.y);
             bullet.SetActive(true);
         }
         

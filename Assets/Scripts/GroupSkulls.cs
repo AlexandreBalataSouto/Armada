@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GroupSkulls : MonoBehaviour
 {
+    //Enemy
+    //Move to the left doing waves
+
     [SerializeField, Range(0f, 20f)] private float speed = 5f;
     [SerializeField, Range(0f, 20f)] private float amplitude = 1f;
     [SerializeField, Range(0f, 20f)] private float frequency = 1f;
