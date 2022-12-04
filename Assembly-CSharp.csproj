@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\EnemyPool.cs" />
      <Compile Include="Assets\Scripts\GroupSkulls.cs" />
+     <Compile Include="Assets\Scripts\Knight.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Orb.cs" />
      <Compile Include="Assets\Scripts\OrbShoot.cs" />
@@ -63,6 +64,10 @@
      <Compile Include="Assets\Scripts\Shield.cs" />
      <Compile Include="Assets\Scripts\Skull.cs" />
      <Compile Include="Assets\Scripts\Spider.cs" />
+     <Compile Include="Assets\Scripts\Warlock.cs" />
+     <Compile Include="Assets\Scripts\WarlockShield.cs" />
+     <Compile Include="Assets\Scripts\WarlockTurret.cs" />
+     <Compile Include="Assets\Scripts\Wasp.cs" />
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/Users/seiya/Unity/Armada/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>

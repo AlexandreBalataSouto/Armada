@@ -62,9 +62,9 @@ public class PlayerController : MonoBehaviour
 
             if (bullet != null)
             {
-                //Direction/Position who shoot/Activate
+                //Direction/Who shoot/Activate
                 bullet.transform.position = transform.position;
-                bullet.GetComponent<Bullet>().Direction("Player", transform.position.x, transform.position.y);
+                bullet.GetComponent<Bullet>().Direction("Player", 8f);
                 bullet.SetActive(true);
             }
         }

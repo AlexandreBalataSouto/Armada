@@ -54,11 +54,11 @@ public class Spider : MonoBehaviour
 
         if (bullet != null)
         {
-            //Direction/Position who shoot/Activate
+            //Direction/Who shoot/Activate
             bullet.transform.position = transform.position;
-            bullet.GetComponent<Bullet>().Direction("Enemy01", transform.position.x, transform.position.y);
+            bullet.GetComponent<Bullet>().Direction("Spider", 8f);
             bullet.SetActive(true);
         }
-        
+
     }
 }

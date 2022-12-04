@@ -14,7 +14,7 @@ public class OrbShoot : MonoBehaviour
     void FixedUpdate()
     {
         //Shoot and rate of fire
-        if(isShooting && Time.time > nextFire)
+        if (isShooting && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Shoot();
@@ -30,7 +30,7 @@ public class OrbShoot : MonoBehaviour
         {
             //Direction/Position who shoot/Activate
             bullet.transform.position = transform.position;
-            bullet.GetComponent<Bullet>().Direction("Enemy02",transform.position.x,transform.position.y);
+            bullet.GetComponent<Bullet>().Direction("Orb", 6f, transform.position);
             bullet.SetActive(true);
         }
 

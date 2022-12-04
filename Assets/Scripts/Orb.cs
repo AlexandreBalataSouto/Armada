@@ -51,10 +51,9 @@ public class Orb : MonoBehaviour
             {
                 child.gameObject.GetComponent<OrbShoot>().isShooting = true;
             }
-
         }
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(8f);
 
         foreach (Transform child in transform)
         {
