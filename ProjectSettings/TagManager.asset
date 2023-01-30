@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Bullet
   - BulletEnemy
+  - LaserEnemy
+  - LimitLaser
   layers:
   - Default
   - TransparentFX

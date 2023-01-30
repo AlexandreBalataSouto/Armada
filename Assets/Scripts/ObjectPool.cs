@@ -6,53 +6,65 @@ public class ObjectPool : MonoBehaviour
 {
     // Create bullets when game start to toggle it on and off instead of Instance and Destroy.
 
-    public static ObjectPool sharedInstance;
-    public List<GameObject> pooledObjects;
-    public GameObject bullettToPool;
-    public GameObject bullettEnemyToPool;
-    private int amount = 1000;
+    public static ObjectPool SharedInstance;
+    //[SerializeField] private List<GameObject> _pooledObjects;
+    [SerializeField] private List<Bullet> _pooledObjects;
+    //[SerializeField] private GameObject _bullettToPool;
+    [SerializeField] private Bullet _bullettToPool;
+    [SerializeField] private Bullet _bullettEnemyToPool;
+    [SerializeField] private Bullet _lasertEnemyToPool;
+    [SerializeField, Range(0f, 1000f)] private int _amount;
 
     private void Awake()
     {
-        if (sharedInstance == null)
+        if (SharedInstance == null)
         {
-            sharedInstance = this;
+            SharedInstance = this;
         }
     }
 
     private void Start()
     {
         //Create list of GameObject
-        pooledObjects = new List<GameObject>();
-        GameObject tmp;
+        //_pooledObjects = new List<GameObject>();
+        _pooledObjects = new List<Bullet>();
+        //GameObject tmp;
+        Bullet tmp;
 
         //Create bullets for player
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
-            tmp = Instantiate(bullettToPool, transform);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            tmp = Instantiate(_bullettToPool, transform);
+            tmp.gameObject.SetActive(false);
+            _pooledObjects.Add(tmp);
         }
         //Create bullets for enemies
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
-            tmp = Instantiate(bullettEnemyToPool, transform);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            tmp = Instantiate(_bullettEnemyToPool, transform);
+            tmp.gameObject.SetActive(false);
+            _pooledObjects.Add(tmp);
+        }
+        //Create laser for enemies
+        for (int i = 0; i < _amount; i++)
+        {
+            tmp = Instantiate(_lasertEnemyToPool, transform);
+            tmp.gameObject.SetActive(false);
+            _pooledObjects.Add(tmp);
         }
     }
     
     //Return bullet
-    public GameObject GetPooledObject(string item)
+    public Bullet GetPooledObject(string item)
     {
-        for (int i = 0; i < pooledObjects.Count; i++)
+        for (int i = 0; i < _pooledObjects.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == item)
+            
+            if (!_pooledObjects[i].gameObject.activeInHierarchy && _pooledObjects[i].tag == item)
             {
-                return pooledObjects[i];
+                return _pooledObjects[i];
             }
         }
         return null;
     }
-    
 }

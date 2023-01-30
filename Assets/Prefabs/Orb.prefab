@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124660110365478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124660186649821
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,8 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124660186649818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124660408780694
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,8 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124660408780690
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -285,8 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124660414160313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,8 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124660445060177
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,8 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124660445060174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,8 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124660573440661
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,8 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124660573440658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,8 +414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124660722459062
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,8 +509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124660722459060
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -635,8 +630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124660888546159
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -756,8 +751,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124661250962117
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -828,8 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124661304573434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,8 +836,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124661322787117
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,8 +931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124661322787115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1074,7 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ebde9ef60048f4b855cfde37bd8285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.3
+  _speed: 1.5
   stopPoint: {fileID: 0}
 --- !u!58 &2014124661465803379
 CircleCollider2D:
@@ -1185,8 +1179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124661645568174
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1257,8 +1251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124661810659076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,8 +1264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!1 &2014124661869040537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,8 +1359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124661869040535
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1487,8 +1480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90
 --- !u!61 &2014124661903588414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1559,8 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShooting: 0
-  fireRate: 0.25
+  _fireRate: 0.25
 --- !u!114 &2014124661950413273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1573,5 +1565,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a36156146014f4cb6c59d0c5806632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2014124661465803383}
-  speed: 90
+  _target: {fileID: 2014124661465803383}
+  _speed: 90

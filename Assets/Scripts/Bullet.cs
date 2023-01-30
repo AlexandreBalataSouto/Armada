@@ -6,16 +6,17 @@ public class Bullet : MonoBehaviour
 {
     //Bullet behaviour
 
-    public float speed = 0f; //Direction
-    public bool isBulletEnemy = false; //OnTriggerEnter2D
-    public float x = 0, y = 0; //Direction
+    private float _speed = 0f; //Direction
+    [SerializeField]  private bool _isBulletEnemy = false; //OnTriggerEnter2D
+    [SerializeField] private bool _isLasertEnemy = false;
+    private float _moveX = 0, _moveY = 0; //Direction
 
 
     // Update is called once per frame
     void Update()
     {
         // Move bullet
-        transform.Translate(x * speed * Time.deltaTime, y * speed * Time.deltaTime, 0);
+        transform.Translate(_moveX * _speed * Time.deltaTime, _moveY * _speed * Time.deltaTime, 0);
     }
 
     /*Check if bullet collide to:
@@ -25,18 +26,23 @@ public class Bullet : MonoBehaviour
      */
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Limit")
+        if (other.tag == "Limit" && _isLasertEnemy == false)
         {
             gameObject.SetActive(false);
         }
-        if(other.tag == "Enemy" && isBulletEnemy == false)
+        if (other.tag == "LimitLaser" && _isLasertEnemy == true)
         {
-            //EnemyPool.sharedInstance.pooledObjects.Remove(other.gameObject);
-
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+        if (other.tag == "LaserEnemy" && _isBulletEnemy == false)
+        {
+            gameObject.SetActive(false);
+        }
+        if (other.tag == "Enemy" && _isBulletEnemy == false)
+        {
             other.gameObject.SetActive(false);
         }
-        if (other.tag == "Player" && isBulletEnemy == true)
+        if (other.tag == "Player" && _isBulletEnemy == true)
         {
             other.gameObject.SetActive(false);
         }
@@ -47,6 +53,7 @@ public class Bullet : MonoBehaviour
      * Spider: left
      * Orb: all direction
      * Wasp: to the player
+     * Laser: down
      */
     public void Direction(string user, float otherSpeed, Vector3 otherTransform = default(Vector3))
     {
@@ -54,34 +61,39 @@ public class Bullet : MonoBehaviour
         {
             case "Player":
 
-                x = 1f;
-                y = 0f;
-                speed = otherSpeed;
+                _moveX = 1f;
+                _moveY = 0f;
+                _speed = otherSpeed;
             break;
 
             case "Spider":
 
-                x = -1f;
-                y = 0f;
-                speed = otherSpeed;
+                _moveX = -1f;
+                _moveY = 0f;
+                _speed = otherSpeed;
             break;
 
             case "Orb":
 
-                x = otherTransform.x;
-                y = otherTransform.y;
-                speed = otherSpeed;
+                _moveX = otherTransform.x;
+                _moveY = otherTransform.y;
+                _speed = otherSpeed;
             break;
 
             case "Wasp":
 
                 Vector3 normalize = transform.position - otherTransform;
                 normalize = normalize.normalized;
-                x = normalize.x * -1;
-                y = normalize.y * -1;
-                speed = otherSpeed;
-
+                _moveX = normalize.x * -1;
+                _moveY = normalize.y * -1;
+                _speed = otherSpeed;
             break;
+
+            case "Laser":
+                _moveX = 0f;
+                _moveY = -1f;
+                _speed = otherSpeed;
+                break;
         }
     }
 }

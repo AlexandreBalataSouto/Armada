@@ -7,34 +7,35 @@ public class Wasp : MonoBehaviour
     //Enemy
     //Moves to one of the two points and start shooting
 
-    [SerializeField, Range(0f, 20f)] private float speed = 5f;
-    public List<GameObject> waspPoints;
-    private int waspPosition;
-    private bool isInWaspPosition = false;
-    private GameObject bullet;
-    [SerializeField, Range(0f, 1f)] private float fireRate = 0.25f;
-    private float nextFire = 0.0f;
-    public GameObject playerPosition;
+    [SerializeField, Range(0f, 20f)] private float _speed = 5f;
+    [SerializeField] private List<GameObject> _waspPoints;
+    private int _waspPosition;
+    private bool _isInWaspPosition = false;
+    //private GameObject bullet;
+    private Bullet _bullet;
+    [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
+    private float _nextFire = 0.0f;
+    [SerializeField] private Transform _playerPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        waspPosition = GetWaspPoint();
+        _waspPosition = GetWaspPoint();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, waspPoints[waspPosition].transform.position, speed * Time.fixedDeltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _waspPoints[_waspPosition].transform.position, _speed * Time.fixedDeltaTime);
 
-        if(transform.position.x <= waspPoints[waspPosition].transform.position.x && isInWaspPosition == false)
+        if(transform.position.x <= _waspPoints[_waspPosition].transform.position.x && _isInWaspPosition == false)
         {
-            isInWaspPosition = true;
+            _isInWaspPosition = true;
         }
 
-        if(isInWaspPosition == true && Time.time > nextFire)
+        if(_isInWaspPosition == true && Time.time > _nextFire)
         {
-            nextFire = Time.time + fireRate;
+            _nextFire = Time.time + _fireRate;
             Shoot();
         }
     }
@@ -44,9 +45,9 @@ public class Wasp : MonoBehaviour
     {
         int indexWaspPoint = 0;
 
-        if (waspPoints.Count > 0)
+        if (_waspPoints.Count > 0)
         {
-            indexWaspPoint = Random.Range(0, waspPoints.Count);
+            indexWaspPoint = Random.Range(0, _waspPoints.Count);
         }
 
         return indexWaspPoint;
@@ -55,14 +56,15 @@ public class Wasp : MonoBehaviour
     private void Shoot()
     {
         //Get bullet
-        bullet = ObjectPool.sharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
 
-        if (bullet != null)
+        if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
-            bullet.transform.position = transform.position;
-            bullet.GetComponent<Bullet>().Direction("Wasp",10f, playerPosition.transform.position);
-            bullet.SetActive(true);
+            _bullet.transform.position = transform.position;
+            //bullet.GetComponent<Bullet>().Direction("Wasp",10f, playerPosition.position);
+            _bullet.Direction("Wasp", 10f, _playerPosition.position);
+            _bullet.gameObject.SetActive(true);
         }
 
     }

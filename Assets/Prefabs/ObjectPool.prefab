@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5bde311c5f49c41a762b203b315ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledObjects: []
-  bullettToPool: {fileID: 4561377970357028690, guid: 3a8f1c7165938734696afe64b07660a1,
+  _pooledObjects: []
+  _bullettToPool: {fileID: 4561377970357028690, guid: 3a8f1c7165938734696afe64b07660a1,
     type: 3}
-  bullettEnemyToPool: {fileID: 845316266042544357, guid: d5df88561dc80bd4f9b5744965290c08,
+  _bullettEnemyToPool: {fileID: 845316266042544357, guid: d5df88561dc80bd4f9b5744965290c08,
     type: 3}
+  _amount: 1000

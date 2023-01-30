@@ -6,34 +6,55 @@ public class OrbShoot : MonoBehaviour
 {
     //Allows orb to shoot
 
-    private GameObject bullet;
-    public bool isShooting = false;
-    [SerializeField, Range(0f, 1f)] private float fireRate = 0.25f;
-    private float nextFire = 0.0f;
+    //private GameObject _bullet;
+    private Bullet _bullet;
+    //public bool isShooting = false;
+    [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
+    private float _nextFire = 0.0f;
 
     void FixedUpdate()
     {
         //Shoot and rate of fire
-        if (isShooting && Time.time > nextFire)
+        if(gameObject.GetComponentInParent<Orb>().IsShootingEven 
+            && (gameObject.name == "Orb_shoot" 
+            || gameObject.name == "Orb_shoot_2" 
+            || gameObject.name == "Orb_shoot_4" 
+            || gameObject.name == "Orb_shoot_6"))
         {
-            nextFire = Time.time + fireRate;
-            Shoot();
+            if (Time.time > _nextFire)
+            {
+                _nextFire = Time.time + _fireRate;
+                Shoot();
+            }
         }
+
+        if (gameObject.GetComponentInParent<Orb>().IsShootingOdd
+                    && (gameObject.name == "Orb_shoot_1"
+                    || gameObject.name == "Orb_shoot_3"
+                    || gameObject.name == "Orb_shoot_5"
+                    || gameObject.name == "Orb_shoot_7"))
+        {
+            if (Time.time > _nextFire)
+            {
+                _nextFire = Time.time + _fireRate;
+                Shoot();
+            }
+        }
+
     }
 
     private void Shoot()
     {
         //Get bullet
-        bullet = ObjectPool.sharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
 
-        if (bullet != null)
+        if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
-            bullet.transform.position = transform.position;
-            bullet.GetComponent<Bullet>().Direction("Orb", 6f, transform.position);
-            bullet.SetActive(true);
+            _bullet.transform.position = transform.position;
+            _bullet.Direction("Orb", 6f, transform.position);
+            _bullet.gameObject.SetActive(true);
         }
-
     }
 
 }

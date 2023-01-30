@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class Warlock : MonoBehaviour
 {
-    public GameObject stopPoint;
-    [SerializeField, Range(0f, 20f)] private float speed = 1.5f;
+    [SerializeField] private GameObject _stopPoint;
+    [SerializeField, Range(0f, 20f)] private float _speed = 1.5f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool IsDeployShield { get; private set; } = false; //Read only, we CAN`T change the value
+    public bool IsDeployTurretUp { get; private set; } = false; //Read only, we CAN`T change the value
+    public bool IsDeployTurretDown { get; private set; } = false; //Read only, we CAN`T change the value
 
     void FixedUpdate()
     {
         //Move to the left
         Vector2 pos = transform.position;
-        pos.x -= speed * Time.fixedDeltaTime;
+        pos.x -= _speed * Time.fixedDeltaTime;
 
 
         //When reach stop point start coroutie RemoveShield
-        if (pos.x > stopPoint.transform.position.x)
+        if (pos.x > _stopPoint.transform.position.x)
         {
             transform.position = pos;
         }
@@ -33,36 +31,14 @@ public class Warlock : MonoBehaviour
 
     IEnumerator DeployArsenal()
     {
+
         yield return new WaitForSeconds(2f);
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.name == "WarlockTurret")
-            {
-                child.gameObject.GetComponent<WarlockTurret>().isDeployTurret = true;
-            }
-        }
+        IsDeployTurretUp = true;
 
         yield return new WaitForSeconds(4f);
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.name == "WarlockTurret_1")
-            {
-                child.gameObject.GetComponent<WarlockTurret>().isDeployTurret = true;
-            }
-        }
+        IsDeployTurretDown = true;
 
         yield return new WaitForSeconds(6f);
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.name == "WarlockShield"
-                || child.gameObject.name == "WarlockShield_1"
-                || child.gameObject.name == "WarlockShield_2"
-                || child.gameObject.name == "WarlockShield_3")
-            {
-                child.gameObject.GetComponent<WarlockShield>().isDeployShield = true;
-            }
-        }
-
-       
+        IsDeployShield = true;
     }
 }

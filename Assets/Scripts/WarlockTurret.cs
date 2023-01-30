@@ -4,82 +4,95 @@ using UnityEngine;
 
 public class WarlockTurret : MonoBehaviour
 {
-    public GameObject target;
 
-    private GameObject bullet;
-    [SerializeField, Range(0f, 4f)] private float fireRate = 0.25f;
-    private float nextFire = 0.0f;
+    [SerializeField, Range(0f, 10f)] private float _speed = 4f;
 
-    public GameObject playerPosition;
+    //Shoot
+    //private GameObject _bullet;
+    private Bullet _bullet;
+    [SerializeField, Range(0f, 4f)] private float _fireRate = 0.25f;
+    private float _nextFire = 0.0f;
+    [SerializeField] private GameObject _playerPosition;
 
-    private Vector3 difference; //Turret orientation
-    private float rotationZ = 0f; //Turret orientation
-    private float turretRotationAux = 90f; //Turret orientation
+    //private Vector3 _turretUp = new Vector3(-8, 4, 0); //Turret position
+    //private Vector3 _turretDown = new Vector3(-8, -4, 0); //Turret position
+    private Vector3 _turretPosition;
 
-    public bool isDeployTurret = false;
-    public bool upOrDown = false;
+    private Vector3 _difference; //Turret orientation
+    private float _rotationZ = 0f; //Turret orientation
+    private float _turretRotationAux = 90f; //Turret orientation
 
-    // Start is called before the first frame update
+    [SerializeField] private bool _upOrDown = false;
+    private bool _isInPosition = false;
+
     void Start()
     {
-        //if(upOrDown == true)
-        //{
-        //    transform.localPosition = new Vector3(-8, 4, 0);
-        //}
-        //else
-        //{
-        //    transform.localPosition = new Vector3(-8, -4, 0);
-        //}
+        if(_upOrDown)
+        {
+            _turretPosition = new Vector3(-8, 4, 0); //Up
+        }
+        else
+        {
+            _turretPosition = new Vector3(-8, -4, 0); //Down
+        }
     }
 
     void Update()
     {
-        if(isDeployTurret)
+        if (gameObject.GetComponentInParent<Warlock>().IsDeployTurretUp && _upOrDown)
         {
-            if (upOrDown == true)
-            {
-                transform.localPosition = new Vector3(-8, 4, 0);
-            }
-            else
-            {
-                transform.localPosition = new Vector3(-8, -4, 0);
-            }
+            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.fixedDeltaTime);
 
-            difference = playerPosition.transform.position - transform.position;
-            rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ - turretRotationAux);
+            if(transform.position == _turretPosition)
+            {
+                _isInPosition = true;
+            }
         }
+        else if (gameObject.GetComponentInParent<Warlock>().IsDeployTurretDown && !_upOrDown)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.fixedDeltaTime);
+
+            if (transform.position == _turretPosition)
+            {
+                _isInPosition = true;
+            }
+        }
+
+        _difference = _playerPosition.transform.position - transform.position;
+        _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _turretRotationAux);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(isDeployTurret)
+
+        if (_isInPosition)
         {
-            if (Time.time > nextFire)
+            if (Time.time > _nextFire)
             {
-                nextFire = Time.time + fireRate;
+                _nextFire = Time.time + _fireRate;
                 Shoot();
             }
         }
         else
         {
-            nextFire = Time.time + fireRate;
+            _nextFire = Time.time + _fireRate;
         }
     }
 
     private void Shoot()
     {
         //Get bullet
-        bullet = ObjectPool.sharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
 
-        if (bullet != null)
+        if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
-            bullet.transform.position = transform.position;
-            bullet.GetComponent<Bullet>().Direction("Wasp", 10f, playerPosition.transform.position);
-            bullet.SetActive(true);
+            _bullet.transform.position = transform.position;
+            //_bullet.GetComponent<Bullet>().Direction("Wasp", 10f, _playerPosition.transform.position);
+            _bullet.Direction("Wasp", 10f, _playerPosition.transform.position);
+            _bullet.gameObject.SetActive(true);
         }
-
     }
 }

@@ -6,46 +6,47 @@ public class WarlockShield : MonoBehaviour
 {
 
     //Default value TEST
-    //Shield 01 -> speed = 0.8f / shieldPositionX = 5.5f / shieldPositionY = 4f
-    //Shield 02 -> speed = 0.75f / shieldPositionX = 4.5f / shieldPositionY = 3.5f
-    //Shield 03 -> speed = 0.5f / shieldPositionX = 3.5f / shieldPositionY = 3f
-    //Shield 04 -> speed = 0.25f / shieldPositionX = 3f / shieldPositionY = 2f
+    //Shield 01 -> _speed = 0.8f / _shieldX = 5.5f / _shieldY = 4f
+    //Shield 02 -> _speed = 0.75f / _shieldX = 4.5f / _shieldY = 3.5f
+    //Shield 03 -> _speed = 0.5f / _shieldX = 3.5f / _shieldY = 3f
+    //Shield 04 -> _speed = 0.25f / _shieldX = 3f / _shieldY = 2f
 
-    public GameObject target;
-    private Vector3 startPos;
-    private Vector3 endPos;
-    public float journeyTime = 1f;
-    public float speed = 1f;
+    //Movement
+    private Vector3 _startPos;
+    private Vector3 _endPos;
+    [SerializeField] private float _journeyTime = 1f;
+    [SerializeField] private float _speed = 1f;
 
-    private float startTime;
-    private Vector3 centerPoint;
-    private Vector3 startRelCenter;
-    private Vector3 endRelCenter;
+    //GetCenter
+    [SerializeField] private GameObject _target;
+    [SerializeField] private float _shieldX = 0f, _shieldY = 4f; //Use integer number
+    private Vector3 _shieldPosition;
 
-    public float shieldPositionX = 0f, shieldPositionY = 4f; //Use integer number
-
-    public bool isDeployShield = false;
+    private float _startTime;
+    private Vector3 _centerPoint;
+    private Vector3 _startRelCenter;
+    private Vector3 _endRelCenter;
 
     // Update is called once per frame
     void Update()
     {
-     
-        if(isDeployShield)
+
+        if (gameObject.GetComponentInParent<Warlock>().IsDeployShield)
         {
             GetCenter(Vector3.left);
-            float fracComplete = Mathf.PingPong(Time.time - startTime, journeyTime / speed);
-            transform.position = Vector3.Slerp(startRelCenter, endRelCenter, fracComplete * speed);
-            transform.position += centerPoint;
+            float fracComplete = Mathf.PingPong(Time.time - _startTime, _journeyTime / _speed);
+            transform.position = Vector3.Slerp(_startRelCenter, _endRelCenter, fracComplete * _speed);
+            transform.position += _centerPoint;
         }
     }
 
     public void GetCenter(Vector3 direction)
     {
-        startPos = new Vector3(target.transform.position.x - shieldPositionX, target.transform.position.y + shieldPositionY, 0);
-        endPos = new Vector3(target.transform.position.x - shieldPositionX, target.transform.position.y - shieldPositionY, 0);
-        centerPoint = (startPos + endPos) * 0.5f;
-        centerPoint -= direction;
-        startRelCenter = startPos - centerPoint;
-        endRelCenter = endPos - centerPoint;
+        _startPos = new Vector3(_target.transform.position.x - _shieldX, _target.transform.position.y + _shieldY, 0);
+        _endPos = new Vector3(_target.transform.position.x - _shieldX, _target.transform.position.y - _shieldY, 0);
+        _centerPoint = (_startPos + _endPos) * 0.5f;
+        _centerPoint -= direction;
+        _startRelCenter = _startPos - _centerPoint;
+        _endRelCenter = _endPos - _centerPoint;
     }
 }

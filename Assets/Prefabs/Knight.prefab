@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8746763239827692526}
   - component: {fileID: 8746763239827692527}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Shield_2
   m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8746763240329899423}
   - component: {fileID: 8746763240329899422}
   m_Layer: 0
-  m_Name: Shield (1)
+  m_Name: Shield_1
   m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,7 +271,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8746763240505679735}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.99, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -357,22 +357,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a640fe2bf9805674e99cfcf236ef4cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Distance: {x: 0, y: 0, z: 0}
-  MovementFrequency: {x: 0, y: 0, z: 0}
-  isFireRateChanged: 0
-  isMoving: 0
-  isReturning: 0
-  isAttacking: 0
-  fireRate: 6
-  speedAttack: 15
-  playerPosition: {fileID: 0}
-  spear: {fileID: 8746763240887666101}
-  shield: {fileID: 8746763240301203735}
-  bretzelPattern: 0
-  infinitePattern: 0
-  potteryPattern: 0
-  attomPattern: 0
-  zPattern: 0
+  _distance: {x: 0, y: 0, z: 0}
+  _movementFrequency: {x: 0, y: 0, z: 0}
+  _isFireRateChanged: 0
+  _isMoving: 0
+  _isReturning: 0
+  _isAttacking: 0
+  _fireRate: 6
+  _speedAttack: 15
+  _playerPosition: {fileID: 0}
+  _bretzelPattern: 0
+  _infinitePattern: 0
+  _potteryPattern: 0
+  _attomPattern: 0
+  _zPattern: 0
 --- !u!1 &8746763240887666100
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +615,7 @@ GameObject:
   - component: {fileID: 8746763241792459463}
   - component: {fileID: 8746763241792459462}
   m_Layer: 0
-  m_Name: Shield (2)
+  m_Name: Shield_3
   m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
