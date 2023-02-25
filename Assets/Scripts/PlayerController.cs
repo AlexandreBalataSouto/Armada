@@ -4,71 +4,96 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
- 
+
     //Player controller duh...
 
-    private float _moveX, _moveY; //Move
-    //private Transform body; //Move
-    //private GameObject _bullet; //Shoot
+    private Rigidbody2D _rb; //Move
+    private Vector2 _velocity, _inputMovement; //Move
+    [SerializeField, Range(0f, 20f)] private float _speed; //Move
+
     private Bullet _bullet; //Shoot
-    [SerializeField, Range(0f, 20f)] private float _speed = 8f; //Move
-    [SerializeField, Range(0f, 2f)]  private float _fireRate = 0.5f; //Shoot
-    private float _nextFire = 0.0f; //Shoot
+    [SerializeField, Range(0f, 2f)]  private float _fireRate; //Shoot
+    private float _nextFire; //Shoot
+    [SerializeField] private int _bulletLimit; //Shoot TODO -> get value from gameManager and set
+    //TODO -> get value from gameManager and set
+    
+
+    private float _reloadTime; //Reload
+    private TextMesh _numBulletText;
+    private bool isReloading = false; //Reload
 
     // Start is called before the first frame update
     void Start()
     {
-        //body = transform;
+        _speed = 6f;
+        _fireRate = 0.5f;
+        _nextFire = 0f;
+        _bulletLimit = GameManager.SharedInstance.NumEnemiesAndBullets;
+        _reloadTime = 3f;
+
+        _rb = gameObject.GetComponent<Rigidbody2D>();
+        _velocity = new Vector2(_speed, _speed);
+        _numBulletText = gameObject.GetComponentInChildren<TextMesh>();
+        _numBulletText.text = "";
+    }
+
+    void Update()
+    {
+        _inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
-    }
-
-    void Update()
-    {
-        Shoot();
+        if(_inputMovement.x != 0 || _inputMovement.y !=0)
+        {
+            Move();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFire && _bulletLimit > 0)
+        {
+            Shoot();
+        }
+        
+        if(Time.time > _nextFire && !isReloading)
+        {
+            _numBulletText.text = "";
+        }
     }
 
     //Move player in any direction
     private void Move()
     {
-        _moveX = Input.GetAxisRaw("Horizontal");
-        _moveY = Input.GetAxisRaw("Vertical");
-
-        if(_moveX != 0f)
-        {
-            transform.position += new Vector3(_moveX * _speed * Time.fixedDeltaTime, 0f, 0f);
-        }
-
-        if(_moveY != 0f)
-        {
-            transform.position += new Vector3(0f, _moveY * _speed * Time.fixedDeltaTime, 0f);
-        }
+        Vector2 delta = _inputMovement * _velocity * Time.deltaTime;
+        Vector2 newPosition = _rb.position + delta;
+        _rb.MovePosition(newPosition);
     }
 
     //Shoot bullet
     private void Shoot()
     {
-        //When press space and rate of fire
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFire)
+        //One less bullet
+        _bulletLimit--;
+        _numBulletText.text = _bulletLimit.ToString();
+
+        //Rate of fire
+        _nextFire = Time.time + _fireRate;
+
+        //Get bullet
+        _bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
+
+        if (_bullet != null)
         {
-            //Rate of fire
-            _nextFire = Time.time + _fireRate;
+            //Direction/Who shoot/Activate
+            _bullet.transform.position = transform.position;
+            _bullet.Direction("Player", 8f);
+            _bullet.gameObject.SetActive(true);
+        }
 
-            //Get bullet
-            _bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
-
-            if (_bullet != null)
-            {
-                //Direction/Who shoot/Activate
-                _bullet.transform.position = transform.position;
-                _bullet.Direction("Player", 8f);
-                //_bullet.GetComponent<Bullet>().Direction("Player", 8f);
-                _bullet.gameObject.SetActive(true);
-            }
+        if (_bulletLimit <= 0)
+        {
+            isReloading = !isReloading;
+            StartCoroutine("Reload");
         }
     }
 
@@ -79,5 +104,15 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(_reloadTime);
+        _bulletLimit = GameManager.SharedInstance.NumEnemiesAndBullets;
+        _numBulletText.text = _bulletLimit.ToString();
+        yield return new WaitForSeconds(1f);
+        _numBulletText.text = "";
+        isReloading = !isReloading;
     }
 }

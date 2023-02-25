@@ -7,9 +7,7 @@ public class ObjectPool : MonoBehaviour
     // Create bullets when game start to toggle it on and off instead of Instance and Destroy.
 
     public static ObjectPool SharedInstance;
-    //[SerializeField] private List<GameObject> _pooledObjects;
     [SerializeField] private List<Bullet> _pooledObjects;
-    //[SerializeField] private GameObject _bullettToPool;
     [SerializeField] private Bullet _bullettToPool;
     [SerializeField] private Bullet _bullettEnemyToPool;
     [SerializeField] private Bullet _lasertEnemyToPool;
@@ -26,7 +24,6 @@ public class ObjectPool : MonoBehaviour
     private void Start()
     {
         //Create list of GameObject
-        //_pooledObjects = new List<GameObject>();
         _pooledObjects = new List<Bullet>();
         //GameObject tmp;
         Bullet tmp;
@@ -59,7 +56,6 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < _pooledObjects.Count; i++)
         {
-            
             if (!_pooledObjects[i].gameObject.activeInHierarchy && _pooledObjects[i].tag == item)
             {
                 return _pooledObjects[i];

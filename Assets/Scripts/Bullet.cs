@@ -5,15 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Bullet behaviour
-
     private float _speed = 0f; //Direction
     [SerializeField]  private bool _isBulletEnemy = false; //OnTriggerEnter2D
     [SerializeField] private bool _isLasertEnemy = false;
     private float _moveX = 0, _moveY = 0; //Direction
 
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Move bullet
         transform.Translate(_moveX * _speed * Time.deltaTime, _moveY * _speed * Time.deltaTime, 0);
@@ -26,6 +24,10 @@ public class Bullet : MonoBehaviour
      */
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag == "MainCamera" && _isLasertEnemy == false)
+        {
+            gameObject.SetActive(false);
+        }
         if (other.tag == "Limit" && _isLasertEnemy == false)
         {
             gameObject.SetActive(false);
@@ -41,10 +43,13 @@ public class Bullet : MonoBehaviour
         if (other.tag == "Enemy" && _isBulletEnemy == false)
         {
             other.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            GameManager.SharedInstance.EnemyDestroy(other.gameObject);
         }
         if (other.tag == "Player" && _isBulletEnemy == true)
         {
             other.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
