@@ -1,32 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static LevelSchema;
 
 public class EnemyPool : MonoBehaviour
 {
-    [SerializeField] public List<GameObject> PooledObjects; //TODO check again
+    [SerializeField] public List<GameObject> PooledObjects;
     [SerializeField] private GameObject _skullToPool;
+    [SerializeField] private GameObject _groupSkullToPool;
+    private Dictionary<string,GameObject> mapEnemies = new Dictionary<string,GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Create list of GameObject
-        PooledObjects = new List<GameObject>();
-        GameObject tmp;
+    private int indexEnemy = 0;
 
-        //Create Skull
-        if(_skullToPool != null)
-        {
-            for (int i = 0; i < GameManager.SharedInstance.NumEnemiesAndBullets; i++)
-            {
-                tmp = Instantiate(_skullToPool, transform);
-                tmp.SetActive(false);
-                PooledObjects.Add(tmp);
-            }
-        }
+    private void Awake() {
+        mapEnemies.Add(_skullToPool.name,_skullToPool);
+        mapEnemies.Add(_groupSkullToPool.name,_groupSkullToPool);
     }
 
     //Return enemy
+    public GameObject GetPooledObject()
+    {
+        GameObject enemy = PooledObjects[indexEnemy];
+        indexEnemy++;
+        if(indexEnemy >= PooledObjects.Count)
+        {
+            indexEnemy = 0;
+        }
+        return enemy;
+    }
+    //TODO check again
     public GameObject GetPooledObject(string item)
     {
         for (int i = 0; i < PooledObjects.Count; i++)
@@ -39,37 +41,20 @@ public class EnemyPool : MonoBehaviour
         return null;
     }
 
-    // void FixedUpdate()
-    // {
-    //     StartCoroutine("SpawnEnemy");
-    // }
-    
-    // //Spawn the enemies in RANDOM spawn points
-    // IEnumerator SpawnEnemy()
-    // {
-    //     int originalLength = pooledObjects.Count;
-    //     int indexSpawnPoint;
+    public void SetEnemiesLevel(List<Enemy> Enemies)
+    {
+        //Create list of GameObject
+        PooledObjects = new List<GameObject>();
+        GameObject tmp;
 
-    //     if (pooledObjects.Count > 0)
-    //     {
-    //         for (int i = 0; i < pooledObjects.Count; i++)
-    //         {
-    //             yield return new WaitForSeconds(1f);
-
-    //             if (pooledObjects.Count == originalLength && !pooledObjects[i].activeInHierarchy)
-    //             {
-    //                 enemy = pooledObjects[i];
-
-    //                 if (enemy != null)
-    //                 {
-    //                     indexSpawnPoint = Random.Range(0, spawnPoints.Count);
-
-    //                     enemy.transform.position = spawnPoints[indexSpawnPoint].transform.position;
-    //                     enemy.SetActive(true);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
+        for (int i = 0; i < Enemies.Count; i++)
+        {
+            for (int j = 0; j < Enemies[i].amountEnemy; j++)
+            {
+                tmp = Instantiate(mapEnemies[Enemies[i].nameEnemy], transform);
+                tmp.SetActive(false);
+                PooledObjects.Add(tmp);
+            }
+        }
+    }
 }

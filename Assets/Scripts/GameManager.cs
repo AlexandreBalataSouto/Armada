@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     //The game manager duh...
-    
     public static GameManager SharedInstance;
 
-    [SerializeField] public int NumEnemiesAndBullets { get; private set; } = 0;
+    [SerializeField] public int NumEnemiesAndBullets { get; private set; } = 0; // REMOVE ?
     //Position
     private Camera _cam;
     private Vector2 _startPositionEnemy;
@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemy;
     private float _enemyRate;
-    private float _nextEnemy;
+    private float _nextEnemy = 0f;
+
+    //Level schema
+    [SerializeField] private LevelSchema _levelSchema;
 
     private void Awake()
     {
@@ -31,11 +34,18 @@ public class GameManager : MonoBehaviour
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
 
-        NumEnemiesAndBullets = 3;
-        _enemyRate = 3f;
-        _nextEnemy = 0f;
+        //Set level
+        string level = SceneManager.GetActiveScene().name;
+        _levelSchema.SetLevelSchema(level);
+        
+        NumEnemiesAndBullets = _levelSchema.NumEnemiesAndBullets;
     }
 
+    private void Start() {
+         //Set enemies
+        _enemyPool.SetEnemiesLevel(_levelSchema.Enemies);
+    }
+    
     private void Update() {
         
         _startPositionEnemy = GetStartOrEndPosition(true);
@@ -56,7 +66,7 @@ public class GameManager : MonoBehaviour
     //TODO check again
     private void GetEnemy()
     {
-        _enemy = _enemyPool.GetPooledObject("Skull");
+        _enemy = _enemyPool.GetPooledObject();
 
         if (_enemy != null)
         {
@@ -65,7 +75,7 @@ public class GameManager : MonoBehaviour
             _enemy.gameObject.SetActive(true);
         }
         //Rate of enemy
-        _nextEnemy = Time.time + _enemyRate;
+        _nextEnemy = Time.time + _levelSchema.EnemyRate;
     } 
 
     //TODO check again
@@ -76,6 +86,7 @@ public class GameManager : MonoBehaviour
         _enemyPool.PooledObjects.RemoveAt(index);
     }
 
+    //This is for EnemyCatcher and set the enemies in a start position
     private Vector2 GetStartOrEndPosition(bool flag)
     {
         Vector2 newVector2Position;

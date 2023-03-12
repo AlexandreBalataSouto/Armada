@@ -14,9 +14,7 @@ public class PlayerController : MonoBehaviour
     private Bullet _bullet; //Shoot
     [SerializeField, Range(0f, 2f)]  private float _fireRate; //Shoot
     private float _nextFire; //Shoot
-    [SerializeField] private int _bulletLimit; //Shoot TODO -> get value from gameManager and set
-    //TODO -> get value from gameManager and set
-    
+    [SerializeField] private int _bulletLimit;
 
     private float _reloadTime; //Reload
     private TextMesh _numBulletText;

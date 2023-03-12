@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Kraken.cs" />
      <Compile Include="Assets\Scripts\LaserCoordinator.cs" />
      <Compile Include="Assets\Scripts\LaserPoint.cs" />
+     <Compile Include="Assets\Scripts\LevelSchema.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Orb.cs" />
      <Compile Include="Assets\Scripts\OrbShoot.cs" />
