@@ -1081,6 +1081,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3227029871028677826, guid: e52f007308f942043a070b6e16567371,
         type: 3}
+    - target: {fileID: 3365856429980629796, guid: 97653cab1143bc74e8e891d13d6b7557,
+        type: 3}
+      propertyPath: _test
+      value: 
+      objectReference: {fileID: 627913790109046156, guid: 0e52f49a4475f734a93fa5b8827b5b9c,
+        type: 3}
+    - target: {fileID: 3365856429980629796, guid: 97653cab1143bc74e8e891d13d6b7557,
+        type: 3}
+      propertyPath: _weirdSkullToPool
+      value: 
+      objectReference: {fileID: 627913790109046156, guid: c67894f406533dc4eb7186335738cffc,
+        type: 3}
     - target: {fileID: 3365856429980629797, guid: 97653cab1143bc74e8e891d13d6b7557,
         type: 3}
       propertyPath: m_Name

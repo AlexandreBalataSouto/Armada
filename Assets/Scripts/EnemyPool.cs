@@ -7,38 +7,25 @@ public class EnemyPool : MonoBehaviour
 {
     [SerializeField] public List<GameObject> PooledObjects;
     [SerializeField] private GameObject _skullToPool;
-    [SerializeField] private GameObject _groupSkullToPool;
+    [SerializeField] private GameObject _weirdSkullToPool;
     private Dictionary<string,GameObject> mapEnemies = new Dictionary<string,GameObject>();
-
-    private int indexEnemy = 0;
 
     private void Awake() {
         mapEnemies.Add(_skullToPool.name,_skullToPool);
-        mapEnemies.Add(_groupSkullToPool.name,_groupSkullToPool);
+        mapEnemies.Add(_weirdSkullToPool.name,_weirdSkullToPool);
     }
 
     //Return enemy
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(int indexEnemy)
     {
-        GameObject enemy = PooledObjects[indexEnemy];
-        indexEnemy++;
-        if(indexEnemy >= PooledObjects.Count)
+        GameObject enemy = null;
+
+        if(PooledObjects[indexEnemy] != null && !PooledObjects[indexEnemy].gameObject.activeInHierarchy)
         {
-            indexEnemy = 0;
+            enemy = PooledObjects[indexEnemy];
         }
+
         return enemy;
-    }
-    //TODO check again
-    public GameObject GetPooledObject(string item)
-    {
-        for (int i = 0; i < PooledObjects.Count; i++)
-        {
-            if (!PooledObjects[i].gameObject.activeInHierarchy && PooledObjects[i].gameObject.name.Contains(item))
-            {
-                return PooledObjects[i];
-            }
-        }
-        return null;
     }
 
     public void SetEnemiesLevel(List<Enemy> Enemies)
@@ -49,12 +36,10 @@ public class EnemyPool : MonoBehaviour
 
         for (int i = 0; i < Enemies.Count; i++)
         {
-            for (int j = 0; j < Enemies[i].amountEnemy; j++)
-            {
-                tmp = Instantiate(mapEnemies[Enemies[i].nameEnemy], transform);
-                tmp.SetActive(false);
-                PooledObjects.Add(tmp);
-            }
+            tmp = Instantiate(mapEnemies[Enemies[i].nameEnemy], transform);
+            tmp.name = Enemies[i].nameEnemy + "_" +i;
+            tmp.SetActive(false);
+            PooledObjects.Add(tmp);
         }
     }
 }

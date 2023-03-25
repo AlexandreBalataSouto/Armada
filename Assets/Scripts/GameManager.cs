@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using static LevelSchema;
 public class GameManager : MonoBehaviour
 {
     //The game manager duh...
@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
     private Vector2 _startPositionEnemy;
     public Vector2 EndPositionEnemy { get; private set; }
     private float _positionCorrection = 4f;
-    
+
     //Enemy pool
     [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemy;
-    private float _enemyRate;
-    private float _nextEnemy = 0f;
+
+    private bool _isCourutineRunning = false;
 
     //Level schema
     [SerializeField] private LevelSchema _levelSchema;
@@ -39,9 +39,7 @@ public class GameManager : MonoBehaviour
         _levelSchema.SetLevelSchema(level);
         
         NumEnemiesAndBullets = _levelSchema.NumEnemiesAndBullets;
-    }
 
-    private void Start() {
          //Set enemies
         _enemyPool.SetEnemiesLevel(_levelSchema.Enemies);
     }
@@ -54,36 +52,46 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(NumEnemiesAndBullets > 0)
+         if(NumEnemiesAndBullets > 0 && _isCourutineRunning == false)
         {
-            if(Time.time > _nextEnemy )
-            {
-                GetEnemy();
-            }
+            StartCoroutine(GetEnemy());
         }
     }
 
-    //TODO check again
-    private void GetEnemy()
+    IEnumerator GetEnemy()
     {
-        _enemy = _enemyPool.GetPooledObject();
+        _isCourutineRunning = true;
+        int indexEnemy = 0;
 
-        if (_enemy != null)
+        yield return new WaitForSeconds(2f);
+
+        foreach(Enemy item in _levelSchema.Enemies)
         {
-            //Direction/Who shoot/Activate
-            _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
-            _enemy.gameObject.SetActive(true);
-        }
-        //Rate of enemy
-        _nextEnemy = Time.time + _levelSchema.EnemyRate;
-    } 
+            yield return new WaitForSeconds(item.rateEnemy);
 
-    //TODO check again
+            if(indexEnemy > _enemyPool.PooledObjects.Count - 1)
+            {   
+                indexEnemy = 0;
+            }
+            _enemy = _enemyPool.GetPooledObject(indexEnemy);
+
+            if (_enemy != null)
+            {
+                //Direction/Who shoot/Activate
+                _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
+                _enemy.gameObject.SetActive(true);
+            }
+
+            indexEnemy++;
+        }
+        _isCourutineRunning = false;
+    }
+
     public void EnemyDestroy(GameObject enemyDestroyed)
     {
+        //Adjust list and enemies queue
+        _enemyPool.PooledObjects.Remove(enemyDestroyed);
         NumEnemiesAndBullets--;
-        int index = (int)_enemyPool.PooledObjects.FindIndex(a => a.name.Contains(enemyDestroyed.gameObject.name));
-        _enemyPool.PooledObjects.RemoveAt(index);
     }
 
     //This is for EnemyCatcher and set the enemies in a start position
