@@ -38,16 +38,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if(_inputMovement.x != 0 || _inputMovement.y !=0)
-        {
-            Move();
-        }
-        
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFire && _bulletLimit > 0)
         {
             Shoot();
@@ -56,6 +47,15 @@ public class PlayerController : MonoBehaviour
         if(Time.time > _nextFire && !isReloading)
         {
             _numBulletText.text = "";
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if(_inputMovement.x != 0 || _inputMovement.y !=0)
+        {
+            Move();
         }
     }
 

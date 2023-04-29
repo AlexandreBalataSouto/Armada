@@ -16,13 +16,18 @@ public class EnemyPool : MonoBehaviour
     }
 
     //Return enemy
-    public GameObject GetPooledObject(int indexEnemy)
+    public GameObject GetPooledObject(string idEnemy)
     {
         GameObject enemy = null;
 
-        if(PooledObjects[indexEnemy] != null && !PooledObjects[indexEnemy].gameObject.activeInHierarchy)
+        for(int i = 0; i < PooledObjects.Count; i++)
         {
-            enemy = PooledObjects[indexEnemy];
+            if(PooledObjects[i].name == idEnemy
+            && PooledObjects[i] != null
+            && !PooledObjects[i].gameObject.activeInHierarchy)
+            {
+                enemy = PooledObjects[i];
+            }
         }
 
         return enemy;
@@ -37,7 +42,7 @@ public class EnemyPool : MonoBehaviour
         for (int i = 0; i < Enemies.Count; i++)
         {
             tmp = Instantiate(mapEnemies[Enemies[i].nameEnemy], transform);
-            tmp.name = Enemies[i].nameEnemy + "_" +i;
+            tmp.name = Enemies[i].idEnemy;
             tmp.SetActive(false);
             PooledObjects.Add(tmp);
         }

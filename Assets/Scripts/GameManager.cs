@@ -19,10 +19,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemy;
 
-    private bool _isCourutineRunning = false;
-
     //Level schema
     [SerializeField] private LevelSchema _levelSchema;
+
+    //SpawnEnemy
+    private int _indexEnemy = 0;
 
     private void Awake()
     {
@@ -50,48 +51,36 @@ public class GameManager : MonoBehaviour
         EndPositionEnemy = GetStartOrEndPosition(false);
     }
 
-    void FixedUpdate()
-    {
-         if(NumEnemiesAndBullets > 0 && _isCourutineRunning == false)
-        {
-            StartCoroutine(GetEnemy());
-        }
+    private void Start() {
+        StartCoroutine(SpawnEnemy());
     }
 
-    IEnumerator GetEnemy()
+    //TODO ENEMY DESTROY
+    //TODO ENEMY INTERVAL
+    IEnumerator SpawnEnemy()
     {
-        _isCourutineRunning = true;
-        int indexEnemy = 0;
-
-        yield return new WaitForSeconds(2f);
-
-        foreach(Enemy item in _levelSchema.Enemies)
+        if(_indexEnemy >= _levelSchema.Enemies.Count)
         {
-            yield return new WaitForSeconds(item.rateEnemy);
-
-            if(indexEnemy > _enemyPool.PooledObjects.Count - 1)
-            {   
-                indexEnemy = 0;
-            }
-            _enemy = _enemyPool.GetPooledObject(indexEnemy);
-
-            if (_enemy != null)
-            {
-                //Direction/Who shoot/Activate
-                _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
-                _enemy.gameObject.SetActive(true);
-            }
-
-            indexEnemy++;
+            _indexEnemy = 0;
         }
-        _isCourutineRunning = false;
-    }
 
-    public void EnemyDestroy(GameObject enemyDestroyed)
-    {
-        //Adjust list and enemies queue
-        _enemyPool.PooledObjects.Remove(enemyDestroyed);
-        NumEnemiesAndBullets--;
+        string id = _levelSchema.Enemies[_indexEnemy].idEnemy;
+        if(id != null)
+        {
+            _enemy = _enemyPool.GetPooledObject(id);
+        }
+
+        yield return new WaitForSeconds(_levelSchema.Enemies[_indexEnemy].intervalEnemy);
+
+        if (_enemy != null)
+        {
+            //Direction/Who shoot/Activate
+            _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
+            _enemy.gameObject.SetActive(true);
+        }
+
+        _indexEnemy++;
+        StartCoroutine(SpawnEnemy());
     }
 
     //This is for EnemyCatcher and set the enemies in a start position

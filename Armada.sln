@@ -1,23 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{05FEB3AE-2EA0-3143-1751-CF20FC32400A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{aeb3fe05-a02e-4331-1751-cf20fc32400a}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{05FEB3AE-2EA0-3143-1751-CF20FC32400A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05FEB3AE-2EA0-3143-1751-CF20FC32400A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05FEB3AE-2EA0-3143-1751-CF20FC32400A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05FEB3AE-2EA0-3143-1751-CF20FC32400A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{aeb3fe05-a02e-4331-1751-cf20fc32400a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{aeb3fe05-a02e-4331-1751-cf20fc32400a}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

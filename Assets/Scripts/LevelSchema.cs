@@ -11,14 +11,16 @@ public class LevelSchema : MonoBehaviour
     }
 
     public class Enemy {
-        // public int amountEnemy { get; private set; } = 0;
+
+        public string idEnemy { get; private set; } = "";
         public string nameEnemy { get; private set; } = "";
-        public float rateEnemy { get; private set; } = 0;
-        
-        public Enemy(string name, float rate)
+        public float intervalEnemy  { get; private set; } = 0f;
+
+        public Enemy(string id, string name, float interval)
         {
+            idEnemy = name + id;
             nameEnemy = name;
-            rateEnemy = rate;
+            intervalEnemy = interval;
         }
     }
     public int NumEnemiesAndBullets { get; private set; } = 0;
@@ -27,13 +29,9 @@ public class LevelSchema : MonoBehaviour
     public void SetLevelSchema(string level){
          switch(level){
             case "Level01":
-                Enemies.Add(new Enemy(EnemyName.Skull,1f));
-                Enemies.Add(new Enemy(EnemyName.Skull,1f));
-                Enemies.Add(new Enemy(EnemyName.Skull,1f));
-                Enemies.Add(new Enemy(EnemyName.WeirdSkull,2f));
-                Enemies.Add(new Enemy(EnemyName.WeirdSkull,0.5f));
-                Enemies.Add(new Enemy(EnemyName.WeirdSkull,0.5f));
-                Enemies.Add(new Enemy(EnemyName.Skull,3f));
+                Enemies.Add(new Enemy("0",EnemyName.Skull,1f));
+                Enemies.Add(new Enemy("1",EnemyName.Skull,1f));
+                Enemies.Add(new Enemy("2",EnemyName.Skull,1f));
 
                 foreach (Enemy Enemy in Enemies)
                 {
