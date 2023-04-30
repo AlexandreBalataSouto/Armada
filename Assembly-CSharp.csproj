@@ -303,6 +303,9 @@
     <Reference Include="UnityEditor.UnityConnectModule">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.22f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+        <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.1.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
         <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\PackageCache\com.unity.analytics@3.6.12\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
@@ -311,9 +314,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
         <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-        <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.1.0\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.22f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -714,6 +714,9 @@
     <Reference Include="Unity.2D.Sprite.Editor">
         <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mediation">
+        <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\ScriptAssemblies\Unity.Mediation.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
@@ -770,9 +773,6 @@
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
         <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\ScriptAssemblies\UnityEditor.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mediation">
-        <HintPath>C:\Users\Alex Balata Souto\Tecnonucleo\Unity\Armada\Library\ScriptAssemblies\Unity.Mediation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

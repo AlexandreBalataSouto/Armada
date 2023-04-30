@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     //The game manager duh...
     public static GameManager SharedInstance;
 
-    [SerializeField] public int NumEnemiesAndBullets { get; private set; } = 0; // REMOVE ?
+    [SerializeField] public int NumEnemiesAndBullets { get; private set; } = 0;
     //Position
     private Camera _cam;
     private Vector2 _startPositionEnemy;
@@ -58,10 +58,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(thisCoroutine);
     }
 
-    //TODO ENEMY INTERVAL
     IEnumerator SpawnEnemy()
     {
-        if(_isEnemyDestroy == false)
+        if(_isEnemyDestroy == false && NumEnemiesAndBullets > 0)
         {
             if(_indexEnemy >= _levelSchema.Enemies.Count)
             {
@@ -95,13 +94,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //TODO ENEMY DESTROY
-    //TODO When you destrou all the enemies -> ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
     public void DestroyEnemy(GameObject enemy)
     {
         StopCoroutine(thisCoroutine);
         _isEnemyDestroy = true;
         _levelSchema.Enemies.Remove(_levelSchema.Enemies.Find((item) => item.idEnemy == enemy.name));
+        NumEnemiesAndBullets--;
         _enemyPool.PooledObjects.Remove(enemy);
         _isEnemyDestroy = false;
         StartCoroutine(thisCoroutine);
