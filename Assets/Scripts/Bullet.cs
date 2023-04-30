@@ -44,6 +44,7 @@ public class Bullet : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
+            GameManager.SharedInstance.DestroyEnemy(other.gameObject);
         }
         if (other.tag == "Player" && _isBulletEnemy == true)
         {

@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LevelSchema _levelSchema;
 
     //SpawnEnemy
+    private IEnumerator thisCoroutine;
     private int _indexEnemy = 0;
+    private bool _isEnemyDestroy = false;
 
     private void Awake()
     {
@@ -52,35 +54,57 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        StartCoroutine(SpawnEnemy());
+        thisCoroutine = SpawnEnemy();
+        StartCoroutine(thisCoroutine);
     }
 
-    //TODO ENEMY DESTROY
     //TODO ENEMY INTERVAL
     IEnumerator SpawnEnemy()
     {
-        if(_indexEnemy >= _levelSchema.Enemies.Count)
+        if(_isEnemyDestroy == false)
         {
-            _indexEnemy = 0;
+            if(_indexEnemy >= _levelSchema.Enemies.Count)
+            {
+                _indexEnemy = 0;
+            }
+
+            string id = _levelSchema.Enemies[_indexEnemy].idEnemy;
+            if(id != null)
+            {
+                _enemy = _enemyPool.GetPooledObject(id);
+            }
+
+            yield return new WaitForSeconds(_levelSchema.Enemies[_indexEnemy].intervalEnemy);
+
+            if (_enemy != null)
+            {
+                //Direction/Who shoot/Activate
+                _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
+                _enemy.gameObject.SetActive(true);
+            }
+
+            _indexEnemy++;
+
+            if(_enemy != null && _enemy.name == _levelSchema.Enemies[_levelSchema.Enemies.Count - 1].idEnemy)
+            {
+               yield return new WaitForSeconds(2f);
+            }
+
+            thisCoroutine = SpawnEnemy();
+            StartCoroutine(thisCoroutine);
         }
+    }
 
-        string id = _levelSchema.Enemies[_indexEnemy].idEnemy;
-        if(id != null)
-        {
-            _enemy = _enemyPool.GetPooledObject(id);
-        }
-
-        yield return new WaitForSeconds(_levelSchema.Enemies[_indexEnemy].intervalEnemy);
-
-        if (_enemy != null)
-        {
-            //Direction/Who shoot/Activate
-            _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
-            _enemy.gameObject.SetActive(true);
-        }
-
-        _indexEnemy++;
-        StartCoroutine(SpawnEnemy());
+    //TODO ENEMY DESTROY
+    //TODO When you destrou all the enemies -> ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+    public void DestroyEnemy(GameObject enemy)
+    {
+        StopCoroutine(thisCoroutine);
+        _isEnemyDestroy = true;
+        _levelSchema.Enemies.Remove(_levelSchema.Enemies.Find((item) => item.idEnemy == enemy.name));
+        _enemyPool.PooledObjects.Remove(enemy);
+        _isEnemyDestroy = false;
+        StartCoroutine(thisCoroutine);
     }
 
     //This is for EnemyCatcher and set the enemies in a start position
