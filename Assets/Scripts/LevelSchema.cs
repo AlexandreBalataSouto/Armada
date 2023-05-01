@@ -15,12 +15,14 @@ public class LevelSchema : MonoBehaviour
         public string idEnemy { get; private set; } = "";
         public string nameEnemy { get; private set; } = "";
         public float intervalEnemy  { get; private set; } = 0f;
+        public int pointSpawnEnemy { get; private set; } = 0;
 
-        public Enemy(string id, string name, float interval)
+        public Enemy(string id, string name, float interval, int pointSapwn)
         {
             idEnemy = name + id;
             nameEnemy = name;
             intervalEnemy = interval;
+            pointSpawnEnemy = pointSapwn;
         }
     }
     public int NumEnemiesAndBullets { get; private set; } = 0;
@@ -29,9 +31,11 @@ public class LevelSchema : MonoBehaviour
     public void SetLevelSchema(string level){
          switch(level){
             case "Level01":
-                Enemies.Add(new Enemy("0",EnemyName.Skull,1f));
-                Enemies.Add(new Enemy("1",EnemyName.Skull,1f));
-                Enemies.Add(new Enemy("2",EnemyName.Skull,1f));
+                //TODO -> SET ID IN A BETTER WAY
+                //TODO -> GET POSITION OF POINTLIST
+                Enemies.Add(new Enemy("0",EnemyName.Skull,1f, 0));
+                Enemies.Add(new Enemy("1",EnemyName.Skull,1f, 1));
+                Enemies.Add(new Enemy("2",EnemyName.Skull,1f, 2));
 
                 foreach (Enemy Enemy in Enemies)
                 {

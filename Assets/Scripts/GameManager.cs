@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LevelSchema _levelSchema;
 
     //SpawnEnemy
+    [SerializeField] private SpawnPoints _spawnPoints;
     private IEnumerator thisCoroutine;
     private int _indexEnemy = 0;
     private bool _isEnemyDestroy = false;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
 
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
+        _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0);
 
         //Set level
         string level = SceneManager.GetActiveScene().name;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
         
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
+        _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0);
     }
 
     private void Start() {
@@ -78,7 +81,10 @@ public class GameManager : MonoBehaviour
             if (_enemy != null)
             {
                 //Direction/Who shoot/Activate
-                _enemy.transform.position =  new Vector2(_startPositionEnemy.x, 0);
+                _enemy.transform.position =  new Vector2(
+                  _spawnPoints.PointList[_levelSchema.Enemies[_indexEnemy].pointSpawnEnemy].position.x,
+                  _spawnPoints.PointList[_levelSchema.Enemies[_indexEnemy].pointSpawnEnemy].position.y
+                );
                 _enemy.gameObject.SetActive(true);
             }
 

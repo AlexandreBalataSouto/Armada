@@ -369,6 +369,7 @@
 "Assets/Scripts/ScreenEdgeColliders.cs"
 "Assets/Scripts/Shield.cs"
 "Assets/Scripts/Skull.cs"
+"Assets/Scripts/SpawnPoints.cs"
 "Assets/Scripts/Spider.cs"
 "Assets/Scripts/Warlock.cs"
 "Assets/Scripts/WarlockShield.cs"
