@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpawnPoints _spawnPoints;
     private IEnumerator thisCoroutine;
     private int _indexEnemy = 0;
-    private bool _isEnemyDestroy = false;
+    private List<string> _enemyDestroyList = new List<string>();
 
     private void Awake()
     {
@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
         //Set level
         string level = SceneManager.GetActiveScene().name;
         _levelSchema.SetLevelSchema(level);
-        
         NumEnemiesAndBullets = _levelSchema.NumEnemiesAndBullets;
 
          //Set enemies
@@ -63,9 +62,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        if(_isEnemyDestroy == false && NumEnemiesAndBullets > 0)
+        thisCoroutine = SpawnEnemy();
+
+        if(NumEnemiesAndBullets > 0)
         {
-            if(_indexEnemy >= _levelSchema.Enemies.Count)
+            if(_indexEnemy > _levelSchema.Enemies.Count - 1)
             {
                 _indexEnemy = 0;
             }
@@ -77,8 +78,8 @@ public class GameManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(_levelSchema.Enemies[_indexEnemy].intervalEnemy);
-
-            if (_enemy != null)
+            
+            if (_enemy != null && _enemyDestroyList.IndexOf(_enemy.name) == -1)
             {
                 //Direction/Who shoot/Activate
                 _enemy.transform.position =  new Vector2(
@@ -88,27 +89,18 @@ public class GameManager : MonoBehaviour
                 _enemy.gameObject.SetActive(true);
             }
 
+            //TODO Wait when last enemy??
+
             _indexEnemy++;
 
-            if(_enemy != null && _enemy.name == _levelSchema.Enemies[_levelSchema.Enemies.Count - 1].idEnemy)
-            {
-               yield return new WaitForSeconds(2f);
-            }
-
-            thisCoroutine = SpawnEnemy();
             StartCoroutine(thisCoroutine);
         }
     }
 
     public void DestroyEnemy(GameObject enemy)
     {
-        StopCoroutine(thisCoroutine);
-        _isEnemyDestroy = true;
-        _levelSchema.Enemies.Remove(_levelSchema.Enemies.Find((item) => item.idEnemy == enemy.name));
         NumEnemiesAndBullets--;
-        _enemyPool.PooledObjects.Remove(enemy);
-        _isEnemyDestroy = false;
-        StartCoroutine(thisCoroutine);
+        _enemyDestroyList.Add(enemy.name);
     }
 
     //This is for EnemyCatcher and set the enemies in a start position

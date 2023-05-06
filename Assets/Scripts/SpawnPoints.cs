@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class SpawnPoints : MonoBehaviour
 {
-   [SerializeField] public List<Transform> PointList = new List<Transform>();
+   public List<Transform> PointList = new List<Transform>();
 }
