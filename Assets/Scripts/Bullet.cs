@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     private float _moveX = 0, _moveY = 0; //Direction
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // Move bullet
         transform.Translate(_moveX * _speed * Time.deltaTime, _moveY * _speed * Time.deltaTime, 0);

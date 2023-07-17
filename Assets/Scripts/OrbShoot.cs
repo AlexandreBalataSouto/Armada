@@ -12,7 +12,7 @@ public class OrbShoot : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
     private float _nextFire = 0.0f;
 
-    void FixedUpdate()
+    void Update()
     {
         //Shoot and rate of fire
         if(gameObject.GetComponentInParent<Orb>().IsShootingEven 
@@ -34,7 +34,7 @@ public class OrbShoot : MonoBehaviour
                     || gameObject.name == "Orb_shoot_5"
                     || gameObject.name == "Orb_shoot_7"))
         {
-            if (Time.time > _nextFire)
+            if (Time.time > _nextFire) //delta?
             {
                 _nextFire = Time.time + _fireRate;
                 Shoot();

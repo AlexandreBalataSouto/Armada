@@ -48,11 +48,7 @@ public class PlayerController : MonoBehaviour
         {
             _numBulletText.text = "";
         }
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         if(_inputMovement.x != 0 || _inputMovement.y !=0)
         {
             Move();

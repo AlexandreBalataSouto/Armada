@@ -24,9 +24,9 @@ public class Wasp : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _waspPoints[_waspPosition].transform.position, _speed * Time.fixedDeltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _waspPoints[_waspPosition].transform.position, _speed * Time.deltaTime);
 
         if(transform.position.x <= _waspPoints[_waspPosition].transform.position.x && _isInWaspPosition == false)
         {

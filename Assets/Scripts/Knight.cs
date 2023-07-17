@@ -167,7 +167,7 @@ public class Knight : MonoBehaviour
             //END _spear orientation
 
             //Return _spear to 0,0,0
-            _spear.localPosition = new Vector3(0f, 0f, 1f);
+            _spear.localPosition = new Vector3(1f, 0.5f, 1f);
 
             //_shield actived
             _shield.gameObject.SetActive(true);

@@ -8,6 +8,8 @@ public class LevelSchema : MonoBehaviour
     {
         public const string Skull = "Skull";
         public const string WeirdSkull = "Weird_Skull";
+        public const string Orb = "Orb";
+        public const string Wasp = "Wasp";
     }
 
     public class Enemy {
@@ -31,13 +33,6 @@ public class LevelSchema : MonoBehaviour
     public void SetLevelSchema(string level){
          switch(level){
             case "Level01":
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 1));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 2));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.WeirdSkull, 4f, 1));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.WeirdSkull, 1f, 1));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.WeirdSkull, 1f, 1));
-                
                 foreach (Enemy Enemy in Enemies)
                 {
                     NumEnemiesAndBullets++;

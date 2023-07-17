@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,8 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pooledObjects: []
-  _bullettToPool: {fileID: 4561377970357028690, guid: 3a8f1c7165938734696afe64b07660a1,
+  _bullettToPool: {fileID: 164743303167440638, guid: 3a8f1c7165938734696afe64b07660a1,
     type: 3}
-  _bullettEnemyToPool: {fileID: 845316266042544357, guid: d5df88561dc80bd4f9b5744965290c08,
+  _bullettEnemyToPool: {fileID: 845316266042544360, guid: d5df88561dc80bd4f9b5744965290c08,
     type: 3}
-  _amount: 1000
+  _lasertEnemyToPool: {fileID: 6787958365206443255, guid: 35a0a5c4675dc41428dadabdac2f8494,
+    type: 3}
+  _amount: 500

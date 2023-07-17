@@ -15,7 +15,7 @@ public class Kraken : MonoBehaviour
     {
         //Move to the left
         Vector2 pos = transform.position;
-        pos.x -= _speed * Time.fixedDeltaTime;
+        pos.x -= _speed * Time.deltaTime;
 
         //When reach stop point start coroutie RemoveShield
         if (pos.x > _stopPoint.transform.position.x)

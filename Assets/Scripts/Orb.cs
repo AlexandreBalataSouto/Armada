@@ -14,12 +14,12 @@ public class Orb : MonoBehaviour
     public bool IsRemovingShieldEven { get; private set; } = false;
     public bool IsRemovingShieldOdd { get; private set; } = false;
 
-    void FixedUpdate()
+    void Update()
     {
 
         //Move to the left
         Vector2 pos = transform.position;
-        pos.x -= _speed * Time.fixedDeltaTime;
+        pos.x -= _speed * Time.deltaTime;
 
 
         //When reach stop point start coroutie RemoveShield

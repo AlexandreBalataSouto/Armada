@@ -30,7 +30,6 @@ public class WarlockShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (gameObject.GetComponentInParent<Warlock>().IsDeployShield)
         {
             GetCenter(Vector3.left);

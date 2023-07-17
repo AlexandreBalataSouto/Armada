@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
+        Application.targetFrameRate = 60;
         thisCoroutine = SpawnEnemy();
         StartCoroutine(thisCoroutine);
     }

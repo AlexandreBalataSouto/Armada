@@ -41,7 +41,7 @@ public class WarlockTurret : MonoBehaviour
     {
         if (gameObject.GetComponentInParent<Warlock>().IsDeployTurretUp && _upOrDown)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.fixedDeltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.deltaTime);
 
             if(transform.position == _turretPosition)
             {
@@ -50,7 +50,7 @@ public class WarlockTurret : MonoBehaviour
         }
         else if (gameObject.GetComponentInParent<Warlock>().IsDeployTurretDown && !_upOrDown)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.fixedDeltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _turretPosition, _speed * Time.deltaTime);
 
             if (transform.position == _turretPosition)
             {

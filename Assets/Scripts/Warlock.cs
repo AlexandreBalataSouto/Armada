@@ -11,11 +11,11 @@ public class Warlock : MonoBehaviour
     public bool IsDeployTurretUp { get; private set; } = false; //Read only, we CAN`T change the value
     public bool IsDeployTurretDown { get; private set; } = false; //Read only, we CAN`T change the value
 
-    void FixedUpdate()
+    void Update()
     {
         //Move to the left
         Vector2 pos = transform.position;
-        pos.x -= _speed * Time.fixedDeltaTime;
+        pos.x -= _speed * Time.deltaTime;
 
 
         //When reach stop point start coroutie RemoveShield
