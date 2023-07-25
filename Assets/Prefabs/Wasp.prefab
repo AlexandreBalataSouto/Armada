@@ -125,8 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _waspPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  _fireRate: 0.5
+  _fireRate: 0.25
   _playerPosition: {fileID: 0}

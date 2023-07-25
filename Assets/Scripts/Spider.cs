@@ -5,46 +5,69 @@ using UnityEngine;
 public class Spider : MonoBehaviour
 {
     //Enemy
-    //Appear and start to moving in circles, each time that reach the top and bottom shoot
-
-    [SerializeField, Range(0f, 20f)] private float _speed = 3;
-    [SerializeField, Range(0f, 20f)] private float _angle = 0;
-    [SerializeField, Range(0f, 20f)] private float _radius = 1.8f;
-    private bool _isShooting = false;
-    //private GameObject _bullet;
+    //Appear and start to moving in circles
+    private BoxCollider2D collider;
+    private SpriteRenderer sprite;
+    //Move
+    private Vector2 _pos;
+    private Transform _startPosition = null;
+    [SerializeField, Range(0f, 20f)] private float _speed = 2.5f;
+    [SerializeField, Range(0f, 20f)] private float _angle = 1f;
+    [SerializeField, Range(0f, 20f)] private float _radius = 3f;
+    private bool _isStartMoving = false;
+    //Shoot
     private Bullet _bullet;
+    [SerializeField, Range(0f, 1f)] private float _fireRate = 1f;
+    private float _nextFire = 0.0f;
+    
+    void Start()
+    {
+        collider = GetComponent<BoxCollider2D>();
+        collider.enabled = false;
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.enabled = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //Move in circles
-        Vector2 pos = transform.position;
-        _angle += _speed * Time.deltaTime; //if you want to switch direction, use -= instead of +=
-        pos.x = Mathf.Cos(_angle) * _radius;
-        pos.y = Mathf.Sin(_angle) * _radius;
-        transform.position = pos;
-        //END Move in circles
+        if(_startPosition != null)
+        {
+            if(_isStartMoving == true)
+            {
+                transform.position = MovingInCircle( _startPosition.transform.position);
 
-        //If is on top OR bottom and is NOT shooting then shoot
-        if ((FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 0f || FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 180f) && (_isShooting == false))
-        {
-            _isShooting = true;
-            Shoot();
-        } 
-        //If is on left OR right and is shooting then stop shoot
-        if ((FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 270f || FindDegree(Mathf.Round(pos.x), Mathf.Round(pos.y)) == 90f) && (_isShooting == true))
-        {
-            _isShooting = false;
+                if(Time.time > _nextFire)
+                {
+                    _nextFire = Time.time + _fireRate;
+                    Shoot();
+                }
+            }
+        }else{
+            GameObject parentObject = GameObject.FindWithTag("StopPoints");
+            int randomChildIndex = Random.Range(0, parentObject.transform.childCount);
+            Transform randomChildTransform = parentObject.transform.GetChild(randomChildIndex);
+            _startPosition = randomChildTransform.transform;
+            transform.position = MovingInCircle( _startPosition.transform.position);
+            sprite.enabled = true;
+            StartCoroutine("FadeIn");
         }
     }
 
-    //Return degree of the circle
-    public static float FindDegree(float x, float y)
+    IEnumerator FadeIn()
     {
-        float value = (float)((Mathf.Atan2(x, y) / Mathf.PI) * 180f);
-        if (value < 0) value += 360f;
+       yield return new WaitForSeconds(3f);
+       _isStartMoving = true;
+       collider.enabled = true;
+    }
 
-        return value;
+    private Vector2 MovingInCircle(Vector2 posParam) 
+    {
+        _pos = posParam;
+        _angle += _speed * Time.deltaTime; //if you want to switch direction, use -= instead of +=
+        _pos.x += Mathf.Cos(_angle) * _radius;
+        _pos.y += Mathf.Sin(_angle) * _radius;
+        return _pos;
     }
 
     private void Shoot()
@@ -56,7 +79,6 @@ public class Spider : MonoBehaviour
         {
             //Direction/Who shoot/Activate
             _bullet.transform.position = transform.position;
-            //_bullet.GetComponent<Bullet>().Direction("Spider", 8f);
             _bullet.Direction("Spider", 8f);
             _bullet.gameObject.SetActive(true);
         }

@@ -8,15 +8,17 @@ public class EnemyPool : MonoBehaviour
     [SerializeField] public List<GameObject> PooledObjects;
     [SerializeField] private GameObject _skullToPool;
     [SerializeField] private GameObject _weirdSkullToPool;
+    [SerializeField] private GameObject _spiderToPool;
+        [SerializeField] private GameObject _waspToPool;
     [SerializeField] private GameObject _orbToPool;
-    [SerializeField] private GameObject _waspToPool;
     private Dictionary<string,GameObject> mapEnemies = new Dictionary<string,GameObject>();
 
     private void Awake() {
         mapEnemies.Add(_skullToPool.name,_skullToPool);
         mapEnemies.Add(_weirdSkullToPool.name,_weirdSkullToPool);
-        mapEnemies.Add(_orbToPool.name,_orbToPool);
+        mapEnemies.Add(_spiderToPool.name,_spiderToPool);
         mapEnemies.Add(_waspToPool.name,_waspToPool);
+        mapEnemies.Add(_orbToPool.name,_orbToPool);
     }
 
     //Return enemy

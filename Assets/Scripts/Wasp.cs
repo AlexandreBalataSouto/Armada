@@ -7,28 +7,28 @@ public class Wasp : MonoBehaviour
     //Enemy
     //Moves to one of the two points and start shooting
 
-    [SerializeField, Range(0f, 20f)] private float _speed = 5f;
-    [SerializeField] private List<GameObject> _waspPoints;
-    private int _waspPosition;
+    [SerializeField, Range(0f, 20f)] private float _speed = 10f;
+    private Vector2 _waspPosition;
     private bool _isInWaspPosition = false;
     //private GameObject bullet;
     private Bullet _bullet;
     [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
     private float _nextFire = 0.0f;
-    [SerializeField] private Transform _playerPosition;
+    private Transform _playerPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         _waspPosition = GetWaspPoint();
+        _playerPosition = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _waspPoints[_waspPosition].transform.position, _speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _waspPosition, _speed * Time.deltaTime);
 
-        if(transform.position.x <= _waspPoints[_waspPosition].transform.position.x && _isInWaspPosition == false)
+        if(transform.position.x <= _waspPosition.x && _isInWaspPosition == false)
         {
             _isInWaspPosition = true;
         }
@@ -40,17 +40,12 @@ public class Wasp : MonoBehaviour
         }
     }
 
-
-    private int GetWaspPoint()
+    private Vector2 GetWaspPoint()
     {
-        int indexWaspPoint = 0;
-
-        if (_waspPoints.Count > 0)
-        {
-            indexWaspPoint = Random.Range(0, _waspPoints.Count);
-        }
-
-        return indexWaspPoint;
+        GameObject parentObject = GameObject.FindWithTag("StopPoints");
+        int randomChildIndex = Random.Range(0, parentObject.transform.childCount);
+        Transform randomChildTransform = parentObject.transform.GetChild(randomChildIndex);
+        return randomChildTransform.position;
     }
 
     private void Shoot()

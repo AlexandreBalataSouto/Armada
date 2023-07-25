@@ -10,6 +10,7 @@ TagManager:
   - BulletEnemy
   - LaserEnemy
   - LimitLaser
+  - StopPoints
   layers:
   - Default
   - TransparentFX
