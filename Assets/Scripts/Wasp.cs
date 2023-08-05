@@ -57,7 +57,6 @@ public class Wasp : MonoBehaviour
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            //bullet.GetComponent<Bullet>().Direction("Wasp",10f, playerPosition.position);
             _bullet.Direction("Wasp", 10f, _playerPosition.position);
             _bullet.gameObject.SetActive(true);
         }

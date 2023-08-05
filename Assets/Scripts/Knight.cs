@@ -11,17 +11,23 @@ public class Knight : MonoBehaviour
     private Vector3 _moveposition;
     private Vector3 _startPosition;
 
-    [SerializeField] private bool _isFireRateChanged = false,_isMoving = false, _isReturning = false, _isAttacking = false; //_isAttacking == isShooting
+    private bool _isFireRateChanged = false;
+    private bool _isMoving = false;
+    private bool _isReturning = false;
+    private bool _isAttacking = false;
+    private bool _isInKnightPosition = false;
+
     [SerializeField, Range(0f, 10f)] private float _fireRate = 6f;
     private float _nextFire = 0.0f;
     [SerializeField, Range(0f, 20f)] private float _speedAttack = 15f;
 
-    [SerializeField] private Transform _playerPosition;
+    private Transform _playerPosition;
+    private Transform _stopPointKnight;
     private Vector3 _goToPlayer;
 
     private float _timer = 0f, _timerAux = 0f; //Compesate time
 
-   private Transform _spear, _shield; //_spear and _shield transform
+    private Transform _spear, _shield; //_spear and _shield transform
 
     private Vector3 _difference; //_spear orientation
     private float _rotationZ = 0f; //_spear orientation
@@ -41,12 +47,12 @@ public class Knight : MonoBehaviour
 
     void Start()
     {
+        _stopPointKnight = GameObject.FindWithTag("StopPoint_Knight").transform;
+        _playerPosition = GameObject.FindWithTag("Player").transform;
+
         //Get spear and shield (Children)
         _spear = gameObject.transform.Find("Spear");
         _shield = gameObject.transform.Find("Shield");
-
-        //From your position start moving
-        _startPosition = transform.position;
 
         _arr[0] = _bretzelPattern;
         _arr[1] = _infinitePattern;
@@ -92,94 +98,108 @@ public class Knight : MonoBehaviour
             _movementFrequency.x = 6f;
             _movementFrequency.y = 2f;
         }
-
-        //Start moving and after a few secons attack
-        _isMoving = true;
-        _nextFire = Time.time + _fireRate;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        //Fire rate random
-        if (!_isFireRateChanged)
+        if(_isInKnightPosition == false)
         {
-            _fireRate = Mathf.Round(Random.Range(2f, 6f));
-            _isFireRateChanged = !_isFireRateChanged;
-        }
+            transform.position = Vector2.MoveTowards(transform.position, _stopPointKnight.position, _speedAttack * Time.deltaTime);
 
-        //Move logic
-        if (_isMoving)
-        {
-            _timer = Time.time - _timerAux;
-            _moveposition.x = _startPosition.x + Mathf.Sin(_timer * _movementFrequency.x) * _distance.x;
-            _moveposition.y = _startPosition.y + Mathf.Sin(_timer * _movementFrequency.y) * _distance.y;
-            transform.position = new Vector3(_moveposition.x, _moveposition.y, 0f);
-
-        }
-        //Attack and rate of fire
-        if (!_isAttacking && !_isReturning && Time.time > _nextFire)
-        {
-            _nextFire = Time.time + _fireRate;
-            _isAttacking = !_isAttacking;
-            _isMoving = !_isMoving;
-            _goToPlayer = _playerPosition.position;
-
-            //_spear orientation
-            _difference = _playerPosition.position - transform.position;
-            _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
-            _spear.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _spearRotationAux);
-            //END _spear orientation
-
-            //Draw the _spear
-            _playerX = _playerPosition.position.x;
-            _playerY = _playerPosition.position.y;
-            _spearX = _spear.localPosition.x;
-            _spearY = _spear.localPosition.y;
-            _spear.localPosition = new Vector3((_playerX - _spearX) / _spearAux, (_playerY - _spearY) / _spearAux, 1f);
-            //END Draw the _spear
-
-            //_shield disabled
-            _shield.gameObject.SetActive(false);
-        }
-
-        //Go towards the player
-        if (_isAttacking)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, _goToPlayer, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
-
-            //When reach the player position return to the start position
-            if (transform.position == _goToPlayer)
+            if(transform.position.x <= _stopPointKnight.position.x)
             {
-                _isReturning = !_isReturning;
-                _isAttacking = !_isAttacking;
+                _isInKnightPosition = true;
+                //From your position start moving
+                _startPosition = transform.position;
+                //Start moving and after a few secons attack
+                _isMoving = true;
+                _nextFire = Time.time + _fireRate;
             }
         }
-
-        //Return to the start position 
-        if (_isReturning)
+        
+        if(_isInKnightPosition == true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _startPosition, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
-
-            //_spear orientation
-            _spear.rotation = Quaternion.Euler(0f, 0f, 0f);
-            //END _spear orientation
-
-            //Return _spear to 0,0,0
-            _spear.localPosition = new Vector3(1f, 0.5f, 1f);
-
-            //_shield actived
-            _shield.gameObject.SetActive(true);
-
-            //When reach the start position, start moving again
-            if (transform.position == _startPosition)
+            //Fire rate random
+            if (!_isFireRateChanged)
             {
-                _isMoving = !_isMoving;
-                _isReturning = !_isReturning;
+                _fireRate = Mathf.Round(Random.Range(2f, 6f));
                 _isFireRateChanged = !_isFireRateChanged;
+            }
+
+            //Move logic
+            if (_isMoving) //TODO Fix jump position
+            {
+                _timer = Time.time - _timerAux;
+                _moveposition.x = _startPosition.x + Mathf.Sin(_timer * _movementFrequency.x) * _distance.x;
+                _moveposition.y = _startPosition.y + Mathf.Sin(_timer * _movementFrequency.y) * _distance.y;
+                transform.position = new Vector3(_moveposition.x, _moveposition.y, 0f);
+
+            }
+            //Attack and rate of fire
+            if (!_isAttacking && !_isReturning && Time.time > _nextFire)
+            {
                 _nextFire = Time.time + _fireRate;
-                _timerAux = Time.time;
+                _isAttacking = !_isAttacking;
+                _isMoving = !_isMoving;
+                _goToPlayer = _playerPosition.position;
+
+                //_spear orientation
+                _difference = _playerPosition.position - transform.position;
+                _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
+                _spear.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _spearRotationAux);
+                //END _spear orientation
+
+                //Draw the _spear
+                _playerX = _playerPosition.position.x;
+                _playerY = _playerPosition.position.y;
+                _spearX = _spear.localPosition.x;
+                _spearY = _spear.localPosition.y;
+                _spear.localPosition = new Vector3((_playerX - _spearX) / _spearAux, (_playerY - _spearY) / _spearAux, 1f);
+                //END Draw the _spear
+
+                //_shield disabled
+                _shield.gameObject.SetActive(false);
+            }
+
+            //Go towards the player
+            if (_isAttacking)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, _goToPlayer, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
+
+                //When reach the player position return to the start position
+                if (transform.position == _goToPlayer)
+                {
+                    _isReturning = !_isReturning;
+                    _isAttacking = !_isAttacking;
+                }
+            }
+
+            //Return to the start position 
+            if (_isReturning)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, _startPosition, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
+
+                //_spear orientation
+                _spear.rotation = Quaternion.Euler(0f, 0f, 0f);
+                //END _spear orientation
+
+                //Return _spear to 0,0,0
+                _spear.localPosition = new Vector3(1f, 0.5f, 1f);
+
+                //_shield actived
+                _shield.gameObject.SetActive(true);
+
+                //When reach the start position, start moving again
+                if (transform.position == _startPosition)
+                {
+                    _isMoving = !_isMoving;
+                    _isReturning = !_isReturning;
+                    _isFireRateChanged = !_isFireRateChanged;
+                    _nextFire = Time.time + _fireRate;
+                    _timerAux = Time.time;
+                }
             }
         }
     }

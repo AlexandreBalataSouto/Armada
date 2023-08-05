@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Warlock : MonoBehaviour
 {
-    [SerializeField] private GameObject _stopPoint;
+    private Transform _stopPointWarlock;
     [SerializeField, Range(0f, 20f)] private float _speed = 1.5f;
 
     public bool IsDeployShield { get; private set; } = false; //Read only, we CAN`T change the value
     public bool IsDeployTurretUp { get; private set; } = false; //Read only, we CAN`T change the value
     public bool IsDeployTurretDown { get; private set; } = false; //Read only, we CAN`T change the value
+
+    void Start()
+    {
+        _stopPointWarlock = GameObject.FindWithTag("StopPoint_Warlock").transform;
+    }
 
     void Update()
     {
@@ -19,7 +24,7 @@ public class Warlock : MonoBehaviour
 
 
         //When reach stop point start coroutie RemoveShield
-        if (pos.x > _stopPoint.transform.position.x)
+        if (pos.x > _stopPointWarlock.transform.position.x)
         {
             transform.position = pos;
         }

@@ -11,6 +11,9 @@ public class LevelSchema : MonoBehaviour
         public const string Spider = "Spider";
         public const string Wasp = "Wasp";
         public const string Orb = "Orb";
+        public const string Knight = "Knight";
+        public const string Warlock = "Warlock";
+        public const string Kraken = "Kraken";
     }
 
     public class Enemy {
@@ -35,9 +38,6 @@ public class LevelSchema : MonoBehaviour
          switch(level){
             case "Level01":
                 //Placeholder Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
-                // Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
-                // Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.WeirdSkull, 2f, 1));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Wasp, 1f, 2));
                 foreach (Enemy Enemy in Enemies)
                 {
                     NumEnemiesAndBullets++;

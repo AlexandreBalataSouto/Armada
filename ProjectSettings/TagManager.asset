@@ -11,6 +11,14 @@ TagManager:
   - LaserEnemy
   - LimitLaser
   - StopPoints
+  - StopPoint_Orb
+  - StopPoint_Knight
+  - StopPoint_Warlock
+  - StopPoint_Kraken
+  - Enemy_Kraken
+  - Flame_Kraken
+  - Enemy_Catcher
+  - Limit_Flame
   layers:
   - Default
   - TransparentFX

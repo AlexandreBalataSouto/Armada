@@ -374,13 +374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distance: {x: 0, y: 0, z: 0}
   _movementFrequency: {x: 0, y: 0, z: 0}
-  _isFireRateChanged: 0
-  _isMoving: 0
-  _isReturning: 0
-  _isAttacking: 0
   _fireRate: 6
   _speedAttack: 15
-  _playerPosition: {fileID: 0}
   _bretzelPattern: 0
   _infinitePattern: 0
   _potteryPattern: 0
@@ -399,7 +394,7 @@ GameObject:
   - component: {fileID: 8746763240887666102}
   m_Layer: 0
   m_Name: Spear
-  m_TagString: Enemy
+  m_TagString: BulletEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,8 +9,11 @@ public class EnemyPool : MonoBehaviour
     [SerializeField] private GameObject _skullToPool;
     [SerializeField] private GameObject _weirdSkullToPool;
     [SerializeField] private GameObject _spiderToPool;
-        [SerializeField] private GameObject _waspToPool;
+    [SerializeField] private GameObject _waspToPool;
     [SerializeField] private GameObject _orbToPool;
+    [SerializeField] private GameObject _knightToPool;
+    [SerializeField] private GameObject _warlockToPool;
+    [SerializeField] private GameObject _krakenToPool;
     private Dictionary<string,GameObject> mapEnemies = new Dictionary<string,GameObject>();
 
     private void Awake() {
@@ -19,6 +22,9 @@ public class EnemyPool : MonoBehaviour
         mapEnemies.Add(_spiderToPool.name,_spiderToPool);
         mapEnemies.Add(_waspToPool.name,_waspToPool);
         mapEnemies.Add(_orbToPool.name,_orbToPool);
+        mapEnemies.Add(_knightToPool.name,_knightToPool);
+        mapEnemies.Add(_warlockToPool.name,_warlockToPool);
+        mapEnemies.Add(_krakenToPool.name,_krakenToPool);
     }
 
     //Return enemy

@@ -359,6 +359,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Knight.cs"
 "Assets/Scripts/Kraken.cs"
+"Assets/Scripts/KrakenFlame.cs"
 "Assets/Scripts/LaserCoordinator.cs"
 "Assets/Scripts/LaserPoint.cs"
 "Assets/Scripts/LevelSchema.cs"

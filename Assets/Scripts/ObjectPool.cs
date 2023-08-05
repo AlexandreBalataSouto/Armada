@@ -11,6 +11,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private Bullet _bullettToPool;
     [SerializeField] private Bullet _bullettEnemyToPool;
     [SerializeField] private Bullet _lasertEnemyToPool;
+    [SerializeField] private Bullet _flameEnemyToPool;
     [SerializeField, Range(0f, 1000f)] private int _amount;
 
     private void Awake()
@@ -46,6 +47,13 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _amount; i++)
         {
             tmp = Instantiate(_lasertEnemyToPool, transform);
+            tmp.gameObject.SetActive(false);
+            _pooledObjects.Add(tmp);
+        }
+        //Create flame for Kraken
+        for (int i = 0; i < _amount; i++)
+        {
+            tmp = Instantiate(_flameEnemyToPool, transform);
             tmp.gameObject.SetActive(false);
             _pooledObjects.Add(tmp);
         }

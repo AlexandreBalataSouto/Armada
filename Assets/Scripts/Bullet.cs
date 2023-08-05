@@ -22,9 +22,9 @@ public class Bullet : MonoBehaviour
      * Enemy
      * Player
      */
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) //TODO Review
     {
-        if (other.tag == "MainCamera" && _isLasertEnemy == false)
+        if ((other.tag == "MainCamera") && _isLasertEnemy == false)
         {
             gameObject.SetActive(false);
         }
@@ -36,19 +36,23 @@ public class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "LaserEnemy" && _isBulletEnemy == false)
+        if ((other.tag == "LaserEnemy" || other.tag == "Flame_Kraken") && _isBulletEnemy == false)
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "Enemy" && _isBulletEnemy == false)
+        if ((other.tag == "Enemy" || other.tag == "Enemy_Kraken") && _isBulletEnemy == false)
         {
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
             GameManager.SharedInstance.DestroyEnemy(other.gameObject);
         }
-        if (other.tag == "Player" && _isBulletEnemy == true)
+        if (other.tag == "Player" &&
+            gameObject.tag != "LaserEnemy" &&
+            gameObject.tag != "Flame_Kraken" &&
+            _isBulletEnemy == true)
         {
-            other.gameObject.SetActive(false);
+            Debug.Log("hit");
+            // other.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }
@@ -65,40 +69,33 @@ public class Bullet : MonoBehaviour
         switch (user)
         {
             case "Player":
-
                 _moveX = 1f;
                 _moveY = 0f;
                 _speed = otherSpeed;
             break;
-
             case "Spider":
-
+            case "Flame_Kraken":
                 _moveX = -1f;
                 _moveY = 0f;
                 _speed = otherSpeed;
             break;
-
             case "Orb":
-
                 _moveX = otherTransform.x;
                 _moveY = otherTransform.y;
                 _speed = otherSpeed;
             break;
-
             case "Wasp":
-
                 Vector3 normalize = transform.position - otherTransform;
                 normalize = normalize.normalized;
                 _moveX = normalize.x * -1;
                 _moveY = normalize.y * -1;
                 _speed = otherSpeed;
             break;
-
             case "Laser":
                 _moveX = 0f;
                 _moveY = -1f;
                 _speed = otherSpeed;
-                break;
+            break;
         }
     }
 }

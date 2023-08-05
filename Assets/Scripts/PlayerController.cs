@@ -92,9 +92,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //Die if touch enemy
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) //TODO Review
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" ||
+            other.tag == "BulletEnemy" ||
+            other.tag == "LaserEnemy" ||
+            other.tag == "Flame_Kraken")
         {
             gameObject.SetActive(false);
         }

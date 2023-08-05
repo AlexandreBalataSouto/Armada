@@ -8,19 +8,25 @@ public class Kraken : MonoBehaviour
     //It moves towards the StopPoint_2 then stops
 
     [SerializeField, Range(0f, 20f)] private float _speed = 2f;
-    [SerializeField] private GameObject _stopPoint;
+    private Bullet _bullet;
+    [SerializeField, Range(0f, 1f)] private float _fireRate = 2f;
+    private float _nextFire = 0.0f;
+    public bool IsInKrakenpPosition { get; private set; } = false; //Read only, we CAN`T change the value
+    private Vector2 _krakenPosition;
+
+    void Start()
+    {
+        _krakenPosition = GameObject.FindWithTag("StopPoint_Kraken").transform.position;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //Move to the left
-        Vector2 pos = transform.position;
-        pos.x -= _speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, _krakenPosition, _speed * Time.deltaTime);
 
-        //When reach stop point start coroutie RemoveShield
-        if (pos.x > _stopPoint.transform.position.x)
+        if(transform.position.x <= _krakenPosition.x && IsInKrakenpPosition == false)
         {
-            transform.position = pos;
+            IsInKrakenpPosition = true;
         }
     }
 }

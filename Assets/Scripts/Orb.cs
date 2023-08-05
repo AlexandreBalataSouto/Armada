@@ -8,22 +8,26 @@ public class Orb : MonoBehaviour
     //Moves toward the center of the screen, waits until shields disappear then shoot
 
     [SerializeField, Range(0f, 20f)] private float _speed = 1.5f;
-    [SerializeField] private GameObject stopPoint;
+    private Transform _stopPointOrb;
     public bool IsShootingEven { get; private set; } = false;
     public bool IsShootingOdd { get; private set; } = false;
     public bool IsRemovingShieldEven { get; private set; } = false;
     public bool IsRemovingShieldOdd { get; private set; } = false;
+    private 
+
+    void Start()
+    {
+        _stopPointOrb = GameObject.FindWithTag("StopPoint_Orb").transform;
+    }
 
     void Update()
     {
-
         //Move to the left
         Vector2 pos = transform.position;
         pos.x -= _speed * Time.deltaTime;
 
-
         //When reach stop point start coroutie RemoveShield
-        if(pos.x > stopPoint.transform.position.x)
+        if(pos.x > _stopPointOrb.position.x)
         {
             transform.position = pos;
         }

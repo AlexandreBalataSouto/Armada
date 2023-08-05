@@ -8,14 +8,10 @@ public class WarlockTurret : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float _speed = 4f;
 
     //Shoot
-    //private GameObject _bullet;
     private Bullet _bullet;
     [SerializeField, Range(0f, 4f)] private float _fireRate = 0.25f;
     private float _nextFire = 0.0f;
-    [SerializeField] private GameObject _playerPosition;
-
-    //private Vector3 _turretUp = new Vector3(-8, 4, 0); //Turret position
-    //private Vector3 _turretDown = new Vector3(-8, -4, 0); //Turret position
+    private Transform _playerPosition;
     private Vector3 _turretPosition;
 
     private Vector3 _difference; //Turret orientation
@@ -27,6 +23,8 @@ public class WarlockTurret : MonoBehaviour
 
     void Start()
     {
+        _playerPosition = GameObject.FindWithTag("Player").transform;
+        //TODO Set a place in the Scene
         if(_upOrDown)
         {
             _turretPosition = new Vector3(-8, 4, 0); //Up
@@ -47,6 +45,10 @@ public class WarlockTurret : MonoBehaviour
             {
                 _isInPosition = true;
             }
+
+            _difference = _playerPosition.position - transform.position;
+            _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _turretRotationAux);
         }
         else if (gameObject.GetComponentInParent<Warlock>().IsDeployTurretDown && !_upOrDown)
         {
@@ -56,11 +58,10 @@ public class WarlockTurret : MonoBehaviour
             {
                 _isInPosition = true;
             }
+             _difference = _playerPosition.position - transform.position;
+            _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _turretRotationAux);
         }
-
-        _difference = _playerPosition.transform.position - transform.position;
-        _rotationZ = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, _rotationZ - _turretRotationAux);
     }
 
     // Update is called once per frame
@@ -90,8 +91,7 @@ public class WarlockTurret : MonoBehaviour
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            //_bullet.GetComponent<Bullet>().Direction("Wasp", 10f, _playerPosition.transform.position);
-            _bullet.Direction("Wasp", 10f, _playerPosition.transform.position);
+            _bullet.Direction("Wasp", 10f, _playerPosition.position);
             _bullet.gameObject.SetActive(true);
         }
     }

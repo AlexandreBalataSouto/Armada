@@ -5,8 +5,9 @@ using UnityEngine;
 public class LaserCoordinator : MonoBehaviour
 {
     //The laser coordinator
+    //TODO review
 
-    [SerializeField] private Kraken _kraken;
+    private GameObject _kraken; //Kraken
     private List<LaserPoint> _laserPoints;
     private bool _isCourutineRunning = false;
     private List<string> _patrons = new List<string>();
@@ -21,29 +22,37 @@ public class LaserCoordinator : MonoBehaviour
         _patrons.Add("Patron02");
         _patrons.Add("Patron03");
         _patrons.Add("Patron04");
-
-        if(_kraken.gameObject.activeSelf)
-        {
-            IsSecretShootActive = true;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_isCourutineRunning && _kraken.gameObject.activeSelf)
+        if(_kraken != null)
         {
-            index = Random.Range(0, _patrons.Count);
+            if (!_isCourutineRunning && _kraken.gameObject.activeSelf)
+            {
+                index = Random.Range(0, _patrons.Count);
 
-            _thisCoroutine = _patrons[index];
+                _thisCoroutine = _patrons[index];
 
-            StartCoroutine(_thisCoroutine);
-        }
+                StartCoroutine(_thisCoroutine);
+            }
 
-        if (!_kraken.gameObject.activeSelf)
-        {
-            IsSecretShootActive = false;
-            StopCoroutine(_thisCoroutine);
+            if (!_kraken.gameObject.activeSelf)
+            {
+                IsSecretShootActive = false;
+                StopCoroutine(_thisCoroutine);
+            }
+
+            if(_kraken.gameObject.activeSelf)
+            {
+                IsSecretShootActive = true;
+            }
+        }else{
+            if(GameObject.FindWithTag("Enemy_Kraken") != null)
+            {
+                _kraken = GameObject.FindWithTag("Enemy_Kraken").gameObject;
+            }
         }
     }
 
