@@ -38,6 +38,7 @@ public class LevelSchema : MonoBehaviour
          switch(level){
             case "Level01":
                 //Placeholder Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
+                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
                 foreach (Enemy Enemy in Enemies)
                 {
                     NumEnemiesAndBullets++;

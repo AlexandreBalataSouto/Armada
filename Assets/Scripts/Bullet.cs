@@ -5,9 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Bullet behaviour
+    [SerializeField]  private bool _isBulletEnemy = false;
     private float _speed = 0f; //Direction
-    [SerializeField]  private bool _isBulletEnemy = false; //OnTriggerEnter2D
-    [SerializeField] private bool _isLasertEnemy = false;
     private float _moveX = 0, _moveY = 0; //Direction
 
     // Update is called once per frame
@@ -17,49 +16,40 @@ public class Bullet : MonoBehaviour
         transform.Translate(_moveX * _speed * Time.deltaTime, _moveY * _speed * Time.deltaTime, 0);
     }
 
-    /*Check if bullet collide to:
-     * Limit
-     * Enemy
-     * Player
-     */
-    private void OnTriggerEnter2D(Collider2D other) //TODO Review
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if ((other.tag == "MainCamera") && _isLasertEnemy == false)
+        if (other.tag == "MainCamera" && gameObject.tag != "LaserEnemy" && gameObject.tag != "Flame_Kraken")
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "Limit" && _isLasertEnemy == false)
+        if (other.tag == "Limit" || other.tag == "LimitLaser" || other.tag == "Limit_Flame")
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "LimitLaser" && _isLasertEnemy == true)
+        if (other.tag == "LaserEnemy" && gameObject.tag != "Flame_Kraken")
         {
             gameObject.SetActive(false);
         }
-        if ((other.tag == "LaserEnemy" || other.tag == "Flame_Kraken") && _isBulletEnemy == false)
+        if(_isBulletEnemy == false && other.tag == "Flame_Kraken")
         {
             gameObject.SetActive(false);
         }
-        if ((other.tag == "Enemy" || other.tag == "Enemy_Kraken") && _isBulletEnemy == false)
+        if (_isBulletEnemy == false && (other.tag == "Enemy" || other.tag == "Enemy_Kraken"))
         {
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
             GameManager.SharedInstance.DestroyEnemy(other.gameObject);
         }
-        if (other.tag == "Player" &&
-            gameObject.tag != "LaserEnemy" &&
-            gameObject.tag != "Flame_Kraken" &&
-            _isBulletEnemy == true)
+        if ( _isBulletEnemy == true && other.tag == "Player" && gameObject.tag != "LaserEnemy"
+          && gameObject.tag != "Flame_Kraken")
         {
-            Debug.Log("hit");
-            // other.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }
 
     /* Change direction AND speed base on the user:
      * Player: right
-     * Spider: left
+     * Spider/Flame_Kraken: left
      * Orb: all direction
      * Wasp: to the player
      * Laser: down
