@@ -5,15 +5,12 @@ using UnityEngine;
 public class LaserCoordinator : MonoBehaviour
 {
     //The laser coordinator
-    //TODO review
-
     private GameObject _kraken; //Kraken
     private List<LaserPoint> _laserPoints;
     private bool _isCourutineRunning = false;
     private List<string> _patrons = new List<string>();
     private string _thisCoroutine;
     private int index;
-    public bool IsSecretShootActive;
 
     void Start()
     {
@@ -36,17 +33,6 @@ public class LaserCoordinator : MonoBehaviour
                 _thisCoroutine = _patrons[index];
 
                 StartCoroutine(_thisCoroutine);
-            }
-
-            if (!_kraken.gameObject.activeSelf)
-            {
-                IsSecretShootActive = false;
-                StopCoroutine(_thisCoroutine);
-            }
-
-            if(_kraken.gameObject.activeSelf)
-            {
-                IsSecretShootActive = true;
             }
         }else{
             if(GameObject.FindWithTag("Enemy_Kraken") != null)

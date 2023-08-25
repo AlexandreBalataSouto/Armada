@@ -7,8 +7,7 @@ public class Knight : MonoBehaviour
     //Enemy
     //Moves in different patterns and after a few secons charge to the player
 
-    [SerializeField] private Vector3 _distance, _movementFrequency;
-    private Vector3 _moveposition;
+    private Vector3 _distance, _movementFrequency;
     private Vector3 _startPosition;
 
     private bool _isFireRateChanged = false;
@@ -17,9 +16,9 @@ public class Knight : MonoBehaviour
     private bool _isAttacking = false;
     private bool _isInKnightPosition = false;
 
-    [SerializeField, Range(0f, 10f)] private float _fireRate = 6f;
+    private float _fireRate = 6f;
     private float _nextFire = 0.0f;
-    [SerializeField, Range(0f, 20f)] private float _speedAttack = 15f;
+    private float _speedAttack = 15f;
 
     private Transform _playerPosition;
     private Transform _stopPointKnight;
@@ -34,16 +33,8 @@ public class Knight : MonoBehaviour
     private float _spearRotationAux = 90f; //_spear orientation
 
     private float _playerX = 0f, _playerY = 0f, _spearX = 0f, _spearY = 0f,_spearAux = 10f; //Draw _spear
-
-    //Pattern TESTING -----> RANDOMIZE
-    [SerializeField] private bool _bretzelPattern = false;
-    [SerializeField] private bool _infinitePattern = false;
-    [SerializeField] private bool _potteryPattern = false;
-    [SerializeField] private bool _attomPattern = false;
-    [SerializeField] private bool _zPattern = false;
-
-    private bool[] _arr = new bool[6];
-    private int _index = 0;
+    
+    private int _indexPattern = 0;
 
     void Start()
     {
@@ -54,52 +45,30 @@ public class Knight : MonoBehaviour
         _spear = gameObject.transform.Find("Spear");
         _shield = gameObject.transform.Find("Shield");
 
-        _arr[0] = _bretzelPattern;
-        _arr[1] = _infinitePattern;
-        _arr[2] = _potteryPattern;
-        _arr[3] = _attomPattern;
-        _arr[4] = _zPattern;
+        _indexPattern = Random.Range(1, 3);
 
-        _index = Random.Range(1, _arr.Length);
-        _arr[_index - 1] = true;
-
-        if (_arr[0]) //_bretzelPattern
+        if (_indexPattern == 1) //_bretzelPattern
         {
             _distance.x = 4f;
             _distance.y = 2f;
             _movementFrequency.x = 3f;
             _movementFrequency.y = 4f;
         }
-        if (_arr[1]) //_infinitePattern
-        {
-            _distance.x = 4f;
-            _distance.y = 3f;
-            _movementFrequency.x = 2f;
-            _movementFrequency.y = 4f;
-        }
-        if (_arr[2]) //_potteryPattern
+        if (_indexPattern == 2) //_potteryPattern
         {
             _distance.x = 3f;
             _distance.y = 3f;
             _movementFrequency.x = 4f;
             _movementFrequency.y = 1f;
         }
-        if (_arr[3]) //_attomPattern
+        if (_indexPattern == 3) //_attomPattern
         {
             _distance.x = 5f;
             _distance.y = 3f;
             _movementFrequency.x = 2.5f;
             _movementFrequency.y = 2f;
         }
-        if (_arr[4]) //_zPattern
-        {
-            _distance.x = 6f;
-            _distance.y = 4f;
-            _movementFrequency.x = 6f;
-            _movementFrequency.y = 2f;
-        }
     }
-
 
     // Update is called once per frame
     void Update()
@@ -116,6 +85,7 @@ public class Knight : MonoBehaviour
                 //Start moving and after a few secons attack
                 _isMoving = true;
                 _nextFire = Time.time + _fireRate;
+                _timerAux = Time.time;
             }
         }
         
@@ -129,13 +99,9 @@ public class Knight : MonoBehaviour
             }
 
             //Move logic
-            if (_isMoving) //TODO Fix jump position
+            if (_isMoving)
             {
-                _timer = Time.time - _timerAux;
-                _moveposition.x = _startPosition.x + Mathf.Sin(_timer * _movementFrequency.x) * _distance.x;
-                _moveposition.y = _startPosition.y + Mathf.Sin(_timer * _movementFrequency.y) * _distance.y;
-                transform.position = new Vector3(_moveposition.x, _moveposition.y, 0f);
-
+                transform.position = Move();
             }
             //Attack and rate of fire
             if (!_isAttacking && !_isReturning && Time.time > _nextFire)
@@ -203,11 +169,13 @@ public class Knight : MonoBehaviour
             }
         }
     }
-}
 
-//Move up and down
-//transform.position = new Vector3(x, maxMove * Mathf.Sin(Time.time * speed), 0);
-//Make the character move in a circle like the Spider !!!
-//transform.position = new Vector3(maxMove * Mathf.Sin(Time.time), maxMove * Mathf.Cos(Time.time), 0);
-//Rotate
-//transform.rotation = Quaternion.Euler(0f, 0f, maxMove * Mathf.Sin(Time.time * speed));
+    private Vector2 Move() 
+    {
+        Vector2 pos;
+        _timer = Time.time - _timerAux;
+        pos.x = _startPosition.x + Mathf.Sin(_timer * _movementFrequency.x) * _distance.x;
+        pos.y = _startPosition.y + Mathf.Sin(_timer * _movementFrequency.y) * _distance.y;
+        return pos;
+    }
+}

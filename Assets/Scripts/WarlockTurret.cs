@@ -91,7 +91,7 @@ public class WarlockTurret : MonoBehaviour
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Wasp", 10f, _playerPosition.position);
+            _bullet.Direction("Wasp", 10f, _playerPosition);
             _bullet.gameObject.SetActive(true);
         }
     }

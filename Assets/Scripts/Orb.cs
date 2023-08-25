@@ -7,13 +7,12 @@ public class Orb : MonoBehaviour
     //Enemy
     //Moves toward the center of the screen, waits until shields disappear then shoot
 
-    [SerializeField, Range(0f, 20f)] private float _speed = 1.5f;
+    private float _speed = 6f;
     private Transform _stopPointOrb;
     public bool IsShootingEven { get; private set; } = false;
     public bool IsShootingOdd { get; private set; } = false;
     public bool IsRemovingShieldEven { get; private set; } = false;
     public bool IsRemovingShieldOdd { get; private set; } = false;
-    private 
 
     void Start()
     {

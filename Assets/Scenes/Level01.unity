@@ -990,18 +990,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 694214723069533248, guid: bc382049416462d4591bc863ac51f361,
-        type: 3}
-      propertyPath: _flameEnemyToPool
-      value: 
-      objectReference: {fileID: 7062609018073166011, guid: 25b6992b752f65948b12d9608195a7f2,
-        type: 3}
-    - target: {fileID: 694214723069533248, guid: bc382049416462d4591bc863ac51f361,
-        type: 3}
-      propertyPath: _lasertEnemyToPool
-      value: 
-      objectReference: {fileID: 3413776205399289028, guid: 35a0a5c4675dc41428dadabdac2f8494,
-        type: 3}
     - target: {fileID: 694214723069533249, guid: bc382049416462d4591bc863ac51f361,
         type: 3}
       propertyPath: m_RootOrder
@@ -1329,11 +1317,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserCoordinator
       objectReference: {fileID: 0}
-    - target: {fileID: 4309764633246502679, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4309764633246502680, guid: 77f59fa6bac5a70429f1d3d4d1977293,
         type: 3}
       propertyPath: m_RootOrder
@@ -1388,66 +1371,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633246502681, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: _kraken
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633316977606, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633338453514, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633340887021, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633857652775, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -17.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764633919248812, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764634805751664, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 16.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764634805751666, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 25.864494
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764634805751666, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -12.432247
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764634927447479, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764634998278980, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309764635128442644, guid: 77f59fa6bac5a70429f1d3d4d1977293,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.96
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77f59fa6bac5a70429f1d3d4d1977293, type: 3}
@@ -1517,11 +1440,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyCatcher
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350642650838947095, guid: 66e52d3e5d8e96147b1ffcebdffd945e,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy_Catcher
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66e52d3e5d8e96147b1ffcebdffd945e, type: 3}

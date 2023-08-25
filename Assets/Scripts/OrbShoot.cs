@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class OrbShoot : MonoBehaviour
 {
-    //Allows orb to shoot
-
-    //private GameObject _bullet;
+    //Allows orb to shoots
     private Bullet _bullet;
-    //public bool isShooting = false;
-    [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
+    private float _fireRate = 0.25f;
     private float _nextFire = 0.0f;
 
     void Update()
@@ -52,9 +49,8 @@ public class OrbShoot : MonoBehaviour
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Orb", 6f, transform.position);
+            _bullet.Direction("Orb", 6f, transform);
             _bullet.gameObject.SetActive(true);
         }
     }
-
 }

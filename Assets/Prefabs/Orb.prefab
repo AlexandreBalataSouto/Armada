@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124660110365478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124660186649818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124660414160313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124660445060174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124660573440658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,7 +844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124661304573434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1104,8 +1098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ebde9ef60048f4b855cfde37bd8285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1.5
-  stopPoint: {fileID: 0}
 --- !u!58 &2014124661465803379
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1116,7 +1108,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1293,7 +1285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124661810659076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,7 +1596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bef292992be4f49971cf3a61bc7ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0.25
 --- !u!114 &2014124661950413273
 MonoBehaviour:
   m_ObjectHideFlags: 0

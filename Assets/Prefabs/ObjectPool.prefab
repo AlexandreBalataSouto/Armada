@@ -49,6 +49,7 @@ MonoBehaviour:
     type: 3}
   _bullettEnemyToPool: {fileID: 845316266042544360, guid: d5df88561dc80bd4f9b5744965290c08,
     type: 3}
-  _lasertEnemyToPool: {fileID: 6787958365206443255, guid: 35a0a5c4675dc41428dadabdac2f8494,
+  _lasertEnemyToPool: {fileID: 3413776205399289028, guid: 35a0a5c4675dc41428dadabdac2f8494,
     type: 3}
-  _amount: 500
+  _flameEnemyToPool: {fileID: 7062609018073166011, guid: 25b6992b752f65948b12d9608195a7f2,
+    type: 3}

@@ -5,14 +5,11 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     // Create bullets when game start to toggle it on and off instead of Instance and Destroy.
-
     public static ObjectPool SharedInstance;
-    [SerializeField] private List<Bullet> _pooledObjects;
-    [SerializeField] private Bullet _bullettToPool;
-    [SerializeField] private Bullet _bullettEnemyToPool;
-    [SerializeField] private Bullet _lasertEnemyToPool;
-    [SerializeField] private Bullet _flameEnemyToPool;
-    [SerializeField, Range(0f, 1000f)] private int _amount;
+    private List<Bullet> _pooledObjects = new List<Bullet>();
+    private List<Bullet> _bulletList = new List<Bullet>();
+    [SerializeField] private Bullet _bullettToPool, _bullettEnemyToPool, _lasertEnemyToPool, _flameEnemyToPool;
+    private int _amount = 100;
 
     private void Awake()
     {
@@ -24,38 +21,23 @@ public class ObjectPool : MonoBehaviour
 
     private void Start()
     {
+        _bulletList.Add(_bullettToPool);
+        _bulletList.Add(_bullettEnemyToPool);
+        _bulletList.Add(_lasertEnemyToPool);
+        _bulletList.Add(_flameEnemyToPool);
+
         //Create list of GameObject
-        _pooledObjects = new List<Bullet>();
-        //GameObject tmp;
         Bullet tmp;
 
-        //Create bullets for player
-        for (int i = 0; i < _amount; i++)
+        for (int i = 0; i < _bulletList.Count; i++)
         {
-            tmp = Instantiate(_bullettToPool, transform);
-            tmp.gameObject.SetActive(false);
-            _pooledObjects.Add(tmp);
-        }
-        //Create bullets for enemies
-        for (int i = 0; i < _amount; i++)
-        {
-            tmp = Instantiate(_bullettEnemyToPool, transform);
-            tmp.gameObject.SetActive(false);
-            _pooledObjects.Add(tmp);
-        }
-        //Create laser for enemies
-        for (int i = 0; i < _amount; i++)
-        {
-            tmp = Instantiate(_lasertEnemyToPool, transform);
-            tmp.gameObject.SetActive(false);
-            _pooledObjects.Add(tmp);
-        }
-        //Create flame for Kraken
-        for (int i = 0; i < _amount; i++)
-        {
-            tmp = Instantiate(_flameEnemyToPool, transform);
-            tmp.gameObject.SetActive(false);
-            _pooledObjects.Add(tmp);
+            for (int j = 0; j < _amount; j++)
+            {
+                //Create bullets for player/enemies/laser/flame for Kraken
+                tmp = Instantiate(_bulletList[i], transform);
+                tmp.gameObject.SetActive(false);
+                _pooledObjects.Add(tmp);
+            }
         }
     }
     

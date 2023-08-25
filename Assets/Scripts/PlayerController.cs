@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rb; //Move
     private Vector2 _velocity, _inputMovement; //Move
-    [SerializeField, Range(0f, 20f)] private float _speed; //Move
+    private float _speed; //Move
 
     private Bullet _bullet; //Shoot
-    [SerializeField, Range(0f, 2f)]  private float _fireRate; //Shoot
+    private float _fireRate; //Shoot
     private float _nextFire; //Shoot
-    [SerializeField] private int _bulletLimit;
+    private int _bulletLimit;
 
     private float _reloadTime; //Reload
     private TextMesh _numBulletText;
@@ -23,11 +23,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _speed = 6f;
-        _fireRate = 0.5f;
-        _nextFire = 0f;
+        _speed = Constants.Player.SPEED;
+        _fireRate = Constants.Player.FIRE_RATE;
+        _nextFire = Constants.Common.NEXT_FIRE;
         _bulletLimit = GameManager.SharedInstance.NumEnemiesAndBullets;
-        _reloadTime = 3f;
+        _reloadTime = Constants.Player.RELOAD_TIME;
 
         _rb = gameObject.GetComponent<Rigidbody2D>();
         _velocity = new Vector2(_speed, _speed);
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             //Direction/Who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Player", 8f);
+            _bullet.Direction("Player", 14f);
             _bullet.gameObject.SetActive(true);
         }
 
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //Die if touch enemy
-    private void OnTriggerEnter2D(Collider2D other) //TODO Review
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy" ||
             other.tag == "BulletEnemy" ||
@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Reload()
     {
+        _numBulletText.text = "R";
         yield return new WaitForSeconds(_reloadTime);
         _bulletLimit = GameManager.SharedInstance.NumEnemiesAndBullets;
         _numBulletText.text = _bulletLimit.ToString();

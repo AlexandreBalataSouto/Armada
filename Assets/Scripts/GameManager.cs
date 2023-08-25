@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     //The game manager duh...
     public static GameManager SharedInstance;
 
-    [SerializeField] public int NumEnemiesAndBullets { get; private set; } = 0;
+    public int NumEnemiesAndBullets { get; private set; } = 0;
     //Position
     private Camera _cam;
     private Vector2 _startPositionEnemy;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
-        _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0);
+        _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0); //TODO set spawnPoints position
     }
 
     private void Start() {
@@ -114,12 +114,12 @@ public class GameManager : MonoBehaviour
         if(flag)
         {
             newVector2Position = (Vector2)_cam.ScreenToWorldPoint(new Vector3(_cam.pixelWidth, 0, _cam.nearClipPlane));
-            newVector2Position.x +=_positionCorrection;
+            newVector2Position.x += _positionCorrection;
             return newVector2Position;
 
         }else{
             newVector2Position = (Vector2)_cam.ScreenToWorldPoint(new Vector3(0, 0, _cam.nearClipPlane));
-            newVector2Position.x += (_positionCorrection * -1);
+            newVector2Position.x += _positionCorrection * -1;
             return newVector2Position;
         }
     }

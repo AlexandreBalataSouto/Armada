@@ -37,7 +37,8 @@ public class LevelSchema : MonoBehaviour
     public void SetLevelSchema(string level){
          switch(level){
             case "Level01":
-                //Placeholder Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
+                //                                      id             Name            Interval   Position                
+                //Placeholder Enemies.Add(new Enemy(SetIdEnemy(),   EnemyName.Skull,     1f,         0));
                 Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
                 foreach (Enemy Enemy in Enemies)
                 {
@@ -51,7 +52,7 @@ public class LevelSchema : MonoBehaviour
         {
             return 0;
         }else{
-            return (Enemies.Count - 1) + 1;
+            return Enemies.Count - 1 + 1;
         }
     }
 }

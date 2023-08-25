@@ -283,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8746763240505679735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.99, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -372,15 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a640fe2bf9805674e99cfcf236ef4cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: {x: 0, y: 0, z: 0}
-  _movementFrequency: {x: 0, y: 0, z: 0}
   _fireRate: 6
-  _speedAttack: 15
-  _bretzelPattern: 0
-  _infinitePattern: 0
-  _potteryPattern: 0
-  _attomPattern: 0
-  _zPattern: 0
+  _speedAttack: 20
 --- !u!1 &8746763240887666100
 GameObject:
   m_ObjectHideFlags: 0

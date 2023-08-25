@@ -354,6 +354,7 @@
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
 "Assets/Scripts/Bullet.cs"
+"Assets/Scripts/Constants.cs"
 "Assets/Scripts/EnemyCatcher.cs"
 "Assets/Scripts/EnemyPool.cs"
 "Assets/Scripts/GameManager.cs"

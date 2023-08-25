@@ -5,12 +5,9 @@ using UnityEngine;
 public class Kraken : MonoBehaviour
 {
     //Enemy
-    //It moves towards the StopPoint_2 then stops
+    //It moves towards the StopPoint_Kraken then stops
+    private float _speed = 2f;
 
-    [SerializeField, Range(0f, 20f)] private float _speed = 2f;
-    private Bullet _bullet;
-    [SerializeField, Range(0f, 1f)] private float _fireRate = 2f;
-    private float _nextFire = 0.0f;
     public bool IsInKrakenpPosition { get; private set; } = false; //Read only, we CAN`T change the value
     private Vector2 _krakenPosition;
 
