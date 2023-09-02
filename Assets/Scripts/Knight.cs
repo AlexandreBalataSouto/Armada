@@ -7,66 +7,62 @@ public class Knight : MonoBehaviour
     //Enemy
     //Moves in different patterns and after a few secons charge to the player
 
-    private Vector3 _distance, _movementFrequency;
-    private Vector3 _startPosition;
-
+    private Vector3 _distance, _movementFrequency, _startPosition, _goToPlayer, _difference;
     private bool _isFireRateChanged = false;
     private bool _isMoving = false;
     private bool _isReturning = false;
     private bool _isAttacking = false;
     private bool _isInKnightPosition = false;
-
-    private float _fireRate = 6f;
-    private float _nextFire = 0.0f;
-    private float _speedAttack = 15f;
-
-    private Transform _playerPosition;
-    private Transform _stopPointKnight;
-    private Vector3 _goToPlayer;
-
+    private float _fireRate;
+    private float _nextFire = 0f;
+    private float _speedAttack;
     private float _timer = 0f, _timerAux = 0f; //Compesate time
-
+    private float _rotationZ = 0f; //_spear orientation
+    private float _spearRotationAux; //_spear orientation
+    private float _playerX = 0f, _playerY = 0f, _spearX = 0f, _spearY = 0f, _spearAux; //Draw _spear
+    private int _indexPattern = Constants.Knight.RANGE_INDEX_PATTERN[0];
+    private Transform _playerPosition, _stopPointKnight;
     private Transform _spear, _shield; //_spear and _shield transform
 
-    private Vector3 _difference; //_spear orientation
-    private float _rotationZ = 0f; //_spear orientation
-    private float _spearRotationAux = 90f; //_spear orientation
-
-    private float _playerX = 0f, _playerY = 0f, _spearX = 0f, _spearY = 0f,_spearAux = 10f; //Draw _spear
-    
-    private int _indexPattern = 0;
+    void Awake() {
+        _fireRate = Constants.Knight.FIRE_RATE;
+        _speedAttack = Constants.Knight.SPEED_ATTACK;
+        _spearRotationAux = Constants.Knight.SPEAR_ROTATION_AUX;
+        _spearAux = Constants.Knight.SPEAR_AUX;
+    }
 
     void Start()
     {
-        _stopPointKnight = GameObject.FindWithTag("StopPoint_Knight").transform;
-        _playerPosition = GameObject.FindWithTag("Player").transform;
+        _stopPointKnight = GameObject.FindWithTag(Constants.Common.STOP_POINT_KNIGHT).transform;
+        _playerPosition = GameObject.FindWithTag(Constants.Common.PLAYER).transform;
 
         //Get spear and shield (Children)
-        _spear = gameObject.transform.Find("Spear");
-        _shield = gameObject.transform.Find("Shield");
+        _spear = gameObject.transform.Find(Constants.Common.SPEAR);
+        _shield = gameObject.transform.Find(Constants.Common.SHIELD);
 
-        _indexPattern = Random.Range(1, 3);
+        _indexPattern = Random.Range(Constants.Knight.RANGE_INDEX_PATTERN[0],
+          Constants.Knight.RANGE_INDEX_PATTERN[1]);
 
-        if (_indexPattern == 1) //_bretzelPattern
+        if (_indexPattern == 1)
         {
-            _distance.x = 4f;
-            _distance.y = 2f;
-            _movementFrequency.x = 3f;
-            _movementFrequency.y = 4f;
+            _distance.x = Constants.Knight.Pattern.Bretzel.DISTANCE_X;
+            _distance.y = Constants.Knight.Pattern.Bretzel.DISTANCE_Y;
+            _movementFrequency.x = Constants.Knight.Pattern.Bretzel.MOVE_FREQ_X;
+            _movementFrequency.y = Constants.Knight.Pattern.Bretzel.MOVE_FREQ_Y;
         }
-        if (_indexPattern == 2) //_potteryPattern
+        if (_indexPattern == 2)
         {
-            _distance.x = 3f;
-            _distance.y = 3f;
-            _movementFrequency.x = 4f;
-            _movementFrequency.y = 1f;
+            _distance.x = Constants.Knight.Pattern.Pottery.DISTANCE_X;
+            _distance.y = Constants.Knight.Pattern.Pottery.DISTANCE_Y;
+            _movementFrequency.x = Constants.Knight.Pattern.Pottery.MOVE_FREQ_X;
+            _movementFrequency.y = Constants.Knight.Pattern.Pottery.MOVE_FREQ_Y;
         }
-        if (_indexPattern == 3) //_attomPattern
+        if (_indexPattern == 3)
         {
-            _distance.x = 5f;
-            _distance.y = 3f;
-            _movementFrequency.x = 2.5f;
-            _movementFrequency.y = 2f;
+            _distance.x = Constants.Knight.Pattern.Attom.DISTANCE_X;
+            _distance.y = Constants.Knight.Pattern.Attom.DISTANCE_Y;
+            _movementFrequency.x = Constants.Knight.Pattern.Attom.MOVE_FREQ_X;
+            _movementFrequency.y = Constants.Knight.Pattern.Attom.MOVE_FREQ_Y;
         }
     }
 
@@ -75,7 +71,10 @@ public class Knight : MonoBehaviour
     {
         if(_isInKnightPosition == false)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _stopPointKnight.position, _speedAttack * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                _stopPointKnight.position, _speedAttack * Time.deltaTime
+            );
 
             if(transform.position.x <= _stopPointKnight.position.x)
             {
@@ -94,7 +93,8 @@ public class Knight : MonoBehaviour
             //Fire rate random
             if (!_isFireRateChanged)
             {
-                _fireRate = Mathf.Round(Random.Range(2f, 6f));
+                _fireRate = Mathf.Round(Random.Range(Constants.Knight.RANGE_FIRE_RATE[0],
+                  Constants.Knight.RANGE_FIRE_RATE[1]));
                 _isFireRateChanged = !_isFireRateChanged;
             }
 
@@ -132,7 +132,7 @@ public class Knight : MonoBehaviour
             //Go towards the player
             if (_isAttacking)
             {
-                transform.position = Vector2.MoveTowards(transform.position, _goToPlayer, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
+                transform.position = Vector2.MoveTowards(transform.position, _goToPlayer, _speedAttack * Time.deltaTime);
 
                 //When reach the player position return to the start position
                 if (transform.position == _goToPlayer)
@@ -145,14 +145,18 @@ public class Knight : MonoBehaviour
             //Return to the start position 
             if (_isReturning)
             {
-                transform.position = Vector2.MoveTowards(transform.position, _startPosition, _speedAttack * Time.deltaTime); //.deltaTime because .time it`s to fast
+                transform.position = Vector2.MoveTowards(transform.position, _startPosition, _speedAttack * Time.deltaTime);
 
                 //_spear orientation
                 _spear.rotation = Quaternion.Euler(0f, 0f, 0f);
                 //END _spear orientation
 
                 //Return _spear to 0,0,0
-                _spear.localPosition = new Vector3(1f, 0.5f, 1f);
+                _spear.localPosition = new Vector3(
+                  Constants.Knight.SPEAR_LOCAL_POSITION.X,
+                  Constants.Knight.SPEAR_LOCAL_POSITION.Y,
+                  Constants.Knight.SPEAR_LOCAL_POSITION.Z
+                );
 
                 //_shield actived
                 _shield.gameObject.SetActive(true);

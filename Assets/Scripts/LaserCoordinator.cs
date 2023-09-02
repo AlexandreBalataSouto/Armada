@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaserCoordinator : MonoBehaviour
 {
     //The laser coordinator
-    private GameObject _kraken; //Kraken
+    private GameObject _kraken;
     private List<LaserPoint> _laserPoints;
     private bool _isCourutineRunning = false;
     private List<string> _patrons = new List<string>();
@@ -35,9 +35,9 @@ public class LaserCoordinator : MonoBehaviour
                 StartCoroutine(_thisCoroutine);
             }
         }else{
-            if(GameObject.FindWithTag("Enemy_Kraken") != null)
+            if(GameObject.FindWithTag(Constants.Common.ENEMY_KRAKEN) != null)
             {
-                _kraken = GameObject.FindWithTag("Enemy_Kraken").gameObject;
+                _kraken = GameObject.FindWithTag(Constants.Common.ENEMY_KRAKEN).gameObject;
             }
         }
     }

@@ -6,13 +6,14 @@ public class Kraken : MonoBehaviour
 {
     //Enemy
     //It moves towards the StopPoint_Kraken then stops
-    private float _speed = 2f;
+    private float _speed;
 
     public bool IsInKrakenpPosition { get; private set; } = false; //Read only, we CAN`T change the value
     private Vector2 _krakenPosition;
 
     void Start()
     {
+        _speed = Constants.Kraken.SPEED;
         _krakenPosition = GameObject.FindWithTag("StopPoint_Kraken").transform.position;
     }
 

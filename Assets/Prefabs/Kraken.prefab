@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6595142785152823449}
   m_Layer: 0
   m_Name: Kraken_Body_2
-  m_TagString: Enemy
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 2603418659658756050}
   m_Layer: 0
   m_Name: Kraken_Body_1
-  m_TagString: Enemy
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

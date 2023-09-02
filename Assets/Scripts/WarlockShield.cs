@@ -1,31 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WarlockShield : MonoBehaviour
 {
-
-    //Default value TEST
-    //Shield 01 -> _speed = 0.8f / _shieldX = 5.5f / _shieldY = 4f
-    //Shield 02 -> _speed = 0.75f / _shieldX = 4.5f / _shieldY = 3.5f
-    //Shield 03 -> _speed = 0.5f / _shieldX = 3.5f / _shieldY = 3f
-    //Shield 04 -> _speed = 0.25f / _shieldX = 3f / _shieldY = 2f
-
     //Movement
     private Vector3 _startPos;
     private Vector3 _endPos;
-    [SerializeField] private float _journeyTime = 1f;
-    [SerializeField] private float _speed = 1f;
+    private float _journeyTime;
+    private float _speed;
 
     //GetCenter
-    [SerializeField] private GameObject _target;
-    [SerializeField] private float _shieldX = 0f, _shieldY = 4f; //Use integer number
-    private Vector3 _shieldPosition;
-
+    private GameObject _target;
+    private float _shieldX, _shieldY;
     private float _startTime;
     private Vector3 _centerPoint;
     private Vector3 _startRelCenter;
     private Vector3 _endRelCenter;
+
+    void Start()
+    {
+        _target = gameObject.GetComponentInParent<Warlock>().gameObject;
+        _journeyTime = Constants.WarlockShieldList.FirstOrDefault(item => item.SHIELD_NAME == gameObject.name.ToString()).JOURNEY_TIME;
+        _speed = Constants.WarlockShieldList.FirstOrDefault(item => item.SHIELD_NAME == gameObject.name.ToString()).SPEED;
+        _shieldX = Constants.WarlockShieldList.FirstOrDefault(item => item.SHIELD_NAME == gameObject.name.ToString()).SHIELD_X;
+        _shieldY = Constants.WarlockShieldList.FirstOrDefault(item => item.SHIELD_NAME == gameObject.name.ToString()).SHIELD_Y;
+    }
 
     // Update is called once per frame
     void Update()
@@ -43,7 +44,7 @@ public class WarlockShield : MonoBehaviour
     {
         _startPos = new Vector3(_target.transform.position.x - _shieldX, _target.transform.position.y + _shieldY, 0);
         _endPos = new Vector3(_target.transform.position.x - _shieldX, _target.transform.position.y - _shieldY, 0);
-        _centerPoint = (_startPos + _endPos) * 0.5f;
+        _centerPoint = (_startPos + _endPos) * Constants.Warlock.AUX;
         _centerPoint -= direction;
         _startRelCenter = _startPos - _centerPoint;
         _endRelCenter = _endPos - _centerPoint;

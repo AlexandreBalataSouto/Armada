@@ -6,25 +6,31 @@ public class Shield : MonoBehaviour
 {
     //Makes shields (and guns) of orb move around them
 
-    [SerializeField] private GameObject _target;
-    [SerializeField, Range(0f, 200)] private float _speed = 90;
+    private GameObject _target;
+    private float _speed;
     private Vector3 _axis = new Vector3(0, 0, 1);
+
+    void Start()
+    {
+        _target = gameObject.GetComponentInParent<Orb>().gameObject;
+        _speed = Constants.Shield.SPEED;
+    }
 
     void Update()
     {
         if(gameObject.GetComponentInParent<Orb>().IsRemovingShieldEven 
-            && (gameObject.name == "Shield" 
-            || gameObject.name == "Shield_2" 
-            || gameObject.name == "Shield_4" 
-            || gameObject.name == "Shield_6"))
+            && (gameObject.name == Constants.Orb.ORB_SHIELD[0]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[2]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[4]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[6]))
         {
             gameObject.SetActive(false);
         }
         if (gameObject.GetComponentInParent<Orb>().IsRemovingShieldOdd
-            && (gameObject.name == "Shield_1"
-            || gameObject.name == "Shield_3"
-            || gameObject.name == "Shield_5"
-            || gameObject.name == "Shield_7"))
+            && (gameObject.name == Constants.Orb.ORB_SHIELD[1]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[3]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[5]
+            || gameObject.name == Constants.Orb.ORB_SHIELD[7]))
         {
             gameObject.SetActive(false);
         }

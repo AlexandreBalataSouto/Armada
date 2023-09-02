@@ -6,26 +6,31 @@ public class Spider : MonoBehaviour
 {
     //Enemy
     //Appear and start to moving in circles
-    private BoxCollider2D collider;
-    private SpriteRenderer sprite;
+    private BoxCollider2D _collider;
+    private SpriteRenderer _sprite;
     //Move
     private Vector2 _pos;
     private Transform _startPosition = null;
-    [SerializeField, Range(0f, 20f)] private float _speed = 2.5f;
-    [SerializeField, Range(0f, 20f)] private float _angle = 1f;
-    [SerializeField, Range(0f, 20f)] private float _radius = 3f;
+    private float _speed;
+    private float _angle;
+    private float _radius;
     private bool _isStartMoving = false;
     //Shoot
     private Bullet _bullet;
-    [SerializeField, Range(0f, 1f)] private float _fireRate = 1f;
-    private float _nextFire = 0.0f;
+    private float _fireRate;
+    private float _nextFire;
     
     void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
-        collider.enabled = false;
-        sprite = GetComponent<SpriteRenderer>();
-        sprite.enabled = false;
+        _speed = Constants.Spider.SPEED;
+        _angle = Constants.Spider.ANGLE;
+        _radius = Constants.Spider.RADIUS;
+        _fireRate = Constants.Spider.FIRE_RATE;
+        _nextFire = 0f;
+        _collider = GetComponent<BoxCollider2D>();
+        _collider.enabled = false;
+        _sprite = GetComponent<SpriteRenderer>();
+        _sprite.enabled = false;
     }
 
     // Update is called once per frame
@@ -44,13 +49,13 @@ public class Spider : MonoBehaviour
                 }
             }
         }else{
-            GameObject parentObject = GameObject.FindWithTag("StopPoints");
+            GameObject parentObject = GameObject.FindWithTag(Constants.Common.STOP_POINTS);
             int randomChildIndex = Random.Range(0, parentObject.transform.childCount);
             Transform randomChildTransform = parentObject.transform.GetChild(randomChildIndex);
             _startPosition = randomChildTransform.transform;
             transform.position = MovingInCircle( _startPosition.transform.position);
-            sprite.enabled = true;
-            StartCoroutine("FadeIn");
+            _sprite.enabled = true;
+            StartCoroutine(FadeIn());
         }
     }
 
@@ -58,7 +63,7 @@ public class Spider : MonoBehaviour
     {
        yield return new WaitForSeconds(3f);
        _isStartMoving = true;
-       collider.enabled = true;
+       _collider.enabled = true;
     }
 
     private Vector2 MovingInCircle(Vector2 posParam) 
@@ -73,13 +78,13 @@ public class Spider : MonoBehaviour
     private void Shoot()
     {
         //Get bullet
-        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject(Constants.Common.BULLET_ENEMY);
 
         if (_bullet != null)
         {
             //Direction/Who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Spider", 8f);
+            _bullet.Direction(Constants.Common.SPIDER, Constants.Bullet.SPIDER_SPEED);
             _bullet.gameObject.SetActive(true);
         }
 

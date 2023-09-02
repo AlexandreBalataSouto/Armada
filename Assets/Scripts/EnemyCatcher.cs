@@ -12,7 +12,7 @@ public class EnemyCatcher : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Enemy")
+        if(other.gameObject.tag == Constants.Common.ENEMY)
         {
             other.gameObject.SetActive(false);
         }

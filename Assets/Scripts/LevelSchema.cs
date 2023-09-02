@@ -39,7 +39,7 @@ public class LevelSchema : MonoBehaviour
             case "Level01":
                 //                                      id             Name            Interval   Position                
                 //Placeholder Enemies.Add(new Enemy(SetIdEnemy(),   EnemyName.Skull,     1f,         0));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
+                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Orb, 1f, 0));
                 foreach (Enemy Enemy in Enemies)
                 {
                     NumEnemiesAndBullets++;

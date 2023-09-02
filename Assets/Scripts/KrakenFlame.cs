@@ -5,8 +5,13 @@ using UnityEngine;
 public class KrakenFlame : MonoBehaviour
 {
     private Bullet _bullet;
-    private float _fireRate = 10f;
-    private float _nextFire = 10f;
+    private float _fireRate;
+    private float _nextFire;
+    
+    void Start() {
+        _fireRate = Constants.Kraken_Flame.FIRE_RATE;
+        _nextFire = Constants.Kraken_Flame.NEXT_FIRE;
+    }
 
     // Update is called once per frame
     void Update()
@@ -21,13 +26,13 @@ public class KrakenFlame : MonoBehaviour
     private void Shoot()
     {
         //Get bullet
-        _bullet = ObjectPool.SharedInstance.GetPooledObject("Flame_Kraken");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject(Constants.Common.FLAME_KRAKEN);
 
         if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Flame_Kraken", 10f);
+            _bullet.Direction(Constants.Common.FLAME_KRAKEN, Constants.Bullet.KRAKEN_FLAME_SPEED);
             _bullet.gameObject.SetActive(true);
         }
     }

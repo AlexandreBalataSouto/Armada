@@ -7,7 +7,7 @@ public class Orb : MonoBehaviour
     //Enemy
     //Moves toward the center of the screen, waits until shields disappear then shoot
 
-    private float _speed = 6f;
+    private float _speed;
     private Transform _stopPointOrb;
     public bool IsShootingEven { get; private set; } = false;
     public bool IsShootingOdd { get; private set; } = false;
@@ -16,7 +16,8 @@ public class Orb : MonoBehaviour
 
     void Start()
     {
-        _stopPointOrb = GameObject.FindWithTag("StopPoint_Orb").transform;
+        _speed = Constants.Orb.SPEED;
+        _stopPointOrb = GameObject.FindWithTag(Constants.Common.STOP_POINT_ORB).transform;
     }
 
     void Update()
@@ -32,7 +33,7 @@ public class Orb : MonoBehaviour
         }
         else
         {
-            StartCoroutine("RemoveShield");
+            StartCoroutine(RemoveShield());
         }
     }
 

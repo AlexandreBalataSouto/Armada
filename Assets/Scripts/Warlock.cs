@@ -5,15 +5,15 @@ using UnityEngine;
 public class Warlock : MonoBehaviour
 {
     private Transform _stopPointWarlock;
-    [SerializeField, Range(0f, 20f)] private float _speed = 1.5f;
-
+   private float _speed;
     public bool IsDeployShield { get; private set; } = false; //Read only, we CAN`T change the value
     public bool IsDeployTurretUp { get; private set; } = false; //Read only, we CAN`T change the value
     public bool IsDeployTurretDown { get; private set; } = false; //Read only, we CAN`T change the value
 
     void Start()
     {
-        _stopPointWarlock = GameObject.FindWithTag("StopPoint_Warlock").transform;
+        _speed = Constants.Warlock.SPEED;
+        _stopPointWarlock = GameObject.FindWithTag(Constants.Common.STOP_POINT_WARLOCK).transform;
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class Warlock : MonoBehaviour
         }
         else
         {
-            StartCoroutine("DeployArsenal");
+            StartCoroutine(DeployArsenal());
         }
     }
 

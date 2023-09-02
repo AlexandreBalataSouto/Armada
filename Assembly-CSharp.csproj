@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\KrakenFlame.cs" />
+     <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\Skull.cs" />
      <Compile Include="Assets\Scripts\Shield.cs" />
      <Compile Include="Assets\Scripts\Warlock.cs" />
@@ -59,7 +60,6 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Kraken.cs" />
      <Compile Include="Assets\Scripts\WarlockTurret.cs" />
-     <Compile Include="Assets\Scripts\Constants.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.22f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

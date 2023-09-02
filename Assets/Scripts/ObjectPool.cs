@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     private List<Bullet> _pooledObjects = new List<Bullet>();
     private List<Bullet> _bulletList = new List<Bullet>();
     [SerializeField] private Bullet _bullettToPool, _bullettEnemyToPool, _lasertEnemyToPool, _flameEnemyToPool;
-    private int _amount = 100;
+    private int _amount;
 
     private void Awake()
     {
@@ -17,6 +17,7 @@ public class ObjectPool : MonoBehaviour
         {
             SharedInstance = this;
         }
+        _amount = Constants.Common.OBJECT_AMOUNT;
     }
 
     private void Start()

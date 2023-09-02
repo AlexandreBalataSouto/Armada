@@ -6,17 +6,23 @@ public class OrbShoot : MonoBehaviour
 {
     //Allows orb to shoots
     private Bullet _bullet;
-    private float _fireRate = 0.25f;
-    private float _nextFire = 0.0f;
+    private float _fireRate;
+    private float _nextFire;
+
+    void Start()
+    {
+        _fireRate = Constants.Orb.FIRE_RATE;
+        _nextFire = Constants.Orb.NEXT_FIRE;
+    }
 
     void Update()
     {
         //Shoot and rate of fire
         if(gameObject.GetComponentInParent<Orb>().IsShootingEven 
-            && (gameObject.name == "Orb_shoot" 
-            || gameObject.name == "Orb_shoot_2" 
-            || gameObject.name == "Orb_shoot_4" 
-            || gameObject.name == "Orb_shoot_6"))
+            && (gameObject.name == Constants.Orb.ORB_SHOOT[0]
+            || gameObject.name == Constants.Orb.ORB_SHOOT[2]
+            || gameObject.name == Constants.Orb.ORB_SHOOT[4]
+            || gameObject.name == Constants.Orb.ORB_SHOOT[6]))
         {
             if (Time.time > _nextFire)
             {
@@ -26,30 +32,29 @@ public class OrbShoot : MonoBehaviour
         }
 
         if (gameObject.GetComponentInParent<Orb>().IsShootingOdd
-                    && (gameObject.name == "Orb_shoot_1"
-                    || gameObject.name == "Orb_shoot_3"
-                    || gameObject.name == "Orb_shoot_5"
-                    || gameObject.name == "Orb_shoot_7"))
+                    && (gameObject.name == Constants.Orb.ORB_SHOOT[1]
+                    || gameObject.name == Constants.Orb.ORB_SHOOT[3]
+                    || gameObject.name == Constants.Orb.ORB_SHOOT[5]
+                    || gameObject.name == Constants.Orb.ORB_SHOOT[7]))
         {
-            if (Time.time > _nextFire) //delta?
+            if (Time.time > _nextFire)
             {
                 _nextFire = Time.time + _fireRate;
                 Shoot();
             }
         }
-
     }
 
     private void Shoot()
     {
         //Get bullet
-        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject(Constants.Common.BULLET_ENEMY);
 
         if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Orb", 6f, transform);
+            _bullet.Direction(Constants.Common.ORB, Constants.Bullet.ORB_SHOOT_SPEED, transform);
             _bullet.gameObject.SetActive(true);
         }
     }

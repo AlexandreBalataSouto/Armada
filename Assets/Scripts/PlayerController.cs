@@ -4,31 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     //Player controller duh...
-
     private Rigidbody2D _rb; //Move
     private Vector2 _velocity, _inputMovement; //Move
-    private float _speed; //Move
-
     private Bullet _bullet; //Shoot
+    private TextMesh _numBulletText;
+    private float _speed; //Move
     private float _fireRate; //Shoot
     private float _nextFire; //Shoot
-    private int _bulletLimit;
-
     private float _reloadTime; //Reload
-    private TextMesh _numBulletText;
+    private int _bulletLimit;
     private bool isReloading = false; //Reload
 
     // Start is called before the first frame update
     void Start()
     {
+        _nextFire = 0f;
         _speed = Constants.Player.SPEED;
         _fireRate = Constants.Player.FIRE_RATE;
-        _nextFire = Constants.Common.NEXT_FIRE;
         _bulletLimit = GameManager.SharedInstance.NumEnemiesAndBullets;
         _reloadTime = Constants.Player.RELOAD_TIME;
-
         _rb = gameObject.GetComponent<Rigidbody2D>();
         _velocity = new Vector2(_speed, _speed);
         _numBulletText = gameObject.GetComponentInChildren<TextMesh>();
@@ -74,30 +69,37 @@ public class PlayerController : MonoBehaviour
         _nextFire = Time.time + _fireRate;
 
         //Get bullet
-        _bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject(Constants.Common.BULLET);
 
         if (_bullet != null)
         {
             //Direction/Who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Player", 14f);
+            _bullet.Direction(Constants.Common.PLAYER, Constants.Bullet.PLAYER_SPEED);
             _bullet.gameObject.SetActive(true);
         }
 
         if (_bulletLimit <= 0)
         {
             isReloading = !isReloading;
-            StartCoroutine("Reload");
+            StartCoroutine(Reload());
         }
     }
 
     //Die if touch enemy
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" ||
-            other.tag == "BulletEnemy" ||
-            other.tag == "LaserEnemy" ||
-            other.tag == "Flame_Kraken")
+        if (other.tag == Constants.Common.ENEMY ||
+            other.tag == Constants.Common.BULLET_ENEMY ||
+            other.tag == Constants.Common.LASER_ENEMY ||
+            other.tag == Constants.Common.FLAME_KRAKEN ||
+            other.tag == Constants.Common.LIMIT)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.collider.tag == Constants.Common.LIMIT)
         {
             gameObject.SetActive(false);
         }

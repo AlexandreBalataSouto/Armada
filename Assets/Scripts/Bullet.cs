@@ -5,9 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Bullet behaviour
-    [SerializeField]  private bool _isBulletEnemy = false;
-    private float _speed = 0f; //Direction
-    private float _moveX = 0f, _moveY = 0f; //Direction
+    private float _speed; //Direction
+    private float _moveX, _moveY; //Direction
 
     // Update is called once per frame
     void Update()
@@ -21,30 +20,39 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "MainCamera" && gameObject.tag != "LaserEnemy" && gameObject.tag != "Flame_Kraken")
+        if (other.tag == Constants.Common.MAIN_CAMERA &&
+          gameObject.tag != Constants.Common.LASER_ENEMY &&
+          gameObject.tag != Constants.Common.FLAME_KRAKEN)
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "Limit" || other.tag == "LimitLaser" || other.tag == "Limit_Flame")
+        if (other.tag == Constants.Common.LIMIT ||
+          other.tag == Constants.Common.LIMIT_LASER ||
+          other.tag == Constants.Common.LIMIT_FLAME)
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "LaserEnemy" && gameObject.tag != "Flame_Kraken")
+        if (other.tag == Constants.Common.LASER_ENEMY &&
+          gameObject.tag != Constants.Common.FLAME_KRAKEN)
         {
             gameObject.SetActive(false);
         }
-        if(_isBulletEnemy == false && other.tag == "Flame_Kraken")
+        if(gameObject.tag == Constants.Common.BULLET &&
+          other.tag == Constants.Common.FLAME_KRAKEN)
         {
             gameObject.SetActive(false);
         }
-        if (_isBulletEnemy == false && (other.tag == "Enemy" || other.tag == "Enemy_Kraken"))
+        if (gameObject.tag == Constants.Common.BULLET &&
+          (other.tag == Constants.Common.ENEMY || other.tag == Constants.Common.ENEMY_KRAKEN))
         {
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
             GameManager.SharedInstance.DestroyEnemy(other.gameObject);
         }
-        if ( _isBulletEnemy == true && other.tag == "Player" && gameObject.tag != "LaserEnemy"
-          && gameObject.tag != "Flame_Kraken")
+        if ( gameObject.tag == Constants.Common.BULLET_ENEMY &&
+          other.tag == Constants.Common.PLAYER &&
+          gameObject.tag != Constants.Common.LASER_ENEMY &&
+          gameObject.tag != Constants.Common.FLAME_KRAKEN)
         {
             gameObject.SetActive(false);
         }
@@ -61,18 +69,18 @@ public class Bullet : MonoBehaviour
     {
         switch (user)
         {
-            case "Player":
+            case Constants.Common.PLAYER:
                 _moveX = 1f;
                 _moveY = 0f;
                 _speed = otherSpeed;
             break;
-            case "Spider":
-            case "Flame_Kraken":
+            case Constants.Common.SPIDER:
+            case Constants.Common.FLAME_KRAKEN:
                 _moveX = -1f;
                 _moveY = 0f;
                 _speed = otherSpeed;
             break;
-            case "Orb":
+            case Constants.Common.ORB:
                 _moveX = otherTransform.localPosition.x;
                 _moveY = otherTransform.localPosition.y;
                 _speed = otherSpeed;
@@ -83,14 +91,14 @@ public class Bullet : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, degrees);
 
             break;
-            case "Wasp":
+            case Constants.Common.WASP:
                 Vector3 normalize = transform.position - otherTransform.position;
                 normalize = normalize.normalized;
                 _moveX = normalize.x * -1;
                 _moveY = normalize.y * -1;
                 _speed = otherSpeed;
             break;
-            case "Laser":
+            case Constants.Common.LASER_ENEMY:
                 _moveX = 0f;
                 _moveY = -1f;
                 _speed = otherSpeed;
