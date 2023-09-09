@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour
     //Bullet behaviour
     private float _speed; //Direction
     private float _moveX, _moveY; //Direction
+    private Vector2 _direction;
+    private float _angle;
+    private float _degrees;
 
     // Update is called once per frame
     void Update()
@@ -58,10 +61,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    /* Change direction AND speed base on the user:
+    /* Change _direction AND _speed base on the user:
      * Player: right
      * Spider/Flame_Kraken: left
-     * Orb: all direction
+     * Orb: all _direction
      * Wasp: to the player
      * Laser: down
      */
@@ -85,18 +88,28 @@ public class Bullet : MonoBehaviour
                 _moveY = otherTransform.localPosition.y;
                 _speed = otherSpeed;
 
-                Vector2 direction = transform.position - otherTransform.localPosition;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                float degrees = angle - Mathf.Atan2(_moveX * -1, _moveY * -1) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, degrees);
-
+                _direction = transform.position - otherTransform.localPosition;
+                _angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+                _degrees = _angle - Mathf.Atan2(_moveX * -1, _moveY * -1) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, _degrees);
             break;
             case Constants.Common.WASP:
-                Vector3 normalize = transform.position - otherTransform.position;
-                normalize = normalize.normalized;
-                _moveX = normalize.x * -1;
-                _moveY = normalize.y * -1;
+                _direction = transform.position - otherTransform.position;
+                _moveX = _direction.normalized.x * -1;
+                _moveY = _direction.normalized.y * -1;
                 _speed = otherSpeed;
+
+                _degrees = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, _degrees);
+            break;
+            case Constants.Common.WARLOCK:
+                _direction = transform.position - otherTransform.position;
+                _moveX = _direction.normalized.x * -1;
+                _moveY = _direction.normalized.y * -1;
+                _speed = otherSpeed;
+
+                _degrees = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, _degrees);
             break;
             case Constants.Common.LASER_ENEMY:
                 _moveX = 0f;

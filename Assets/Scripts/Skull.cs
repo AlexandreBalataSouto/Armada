@@ -6,16 +6,19 @@ public class Skull : MonoBehaviour
 {
     //Enemy
     //Move to the left OR Move to the left doing waves
-
     private float _speed;
     private float _amplitude;
     private float _frequency;
     private float _sinCenterY;
-    public bool IsWeird = false;
+    private bool _isWeird = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(gameObject.name.ToString().Contains(Constants.Common.WEIRD_SKULL))
+        {
+            _isWeird = true;
+        }
         _sinCenterY = transform.position.y;
         _speed = Constants.Skull.SPEED;
         _amplitude = Constants.Skull.AMPLITUDE;
@@ -24,7 +27,7 @@ public class Skull : MonoBehaviour
 
     void Update()
     {
-        if(IsWeird)
+        if(_isWeird)
         {
             Vector2 pos = transform.position;
             float sin = Mathf.Sin(pos.x * _frequency) * _amplitude;

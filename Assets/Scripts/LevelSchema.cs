@@ -6,14 +6,14 @@ public class LevelSchema : MonoBehaviour
 {
     private class EnemyName
     {
-        public const string Skull = "Skull";
-        public const string WeirdSkull = "Weird_Skull";
-        public const string Spider = "Spider";
-        public const string Wasp = "Wasp";
-        public const string Orb = "Orb";
-        public const string Knight = "Knight";
-        public const string Warlock = "Warlock";
-        public const string Kraken = "Kraken";
+        public const string Skull = Constants.Common.SKULL;
+        public const string WeirdSkull = Constants.Common.WEIRD_SKULL;
+        public const string Spider = Constants.Common.SPIDER;
+        public const string Wasp = Constants.Common.WASP;
+        public const string Orb = Constants.Common.ORB;
+        public const string Knight = Constants.Common.KNIGHT;
+        public const string Warlock = Constants.Common.WARLOCK;
+        public const string Kraken = Constants.Common.KRAKEN;
     }
 
     public class Enemy {
@@ -36,10 +36,10 @@ public class LevelSchema : MonoBehaviour
     
     public void SetLevelSchema(string level){
          switch(level){
-            case "Level01":
+            case Constants.GameManager.LEVEL_01:
                 //                                      id             Name            Interval   Position                
-                //Placeholder Enemies.Add(new Enemy(SetIdEnemy(),   EnemyName.Skull,     1f,         0));
-                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Orb, 1f, 0));
+                //Placeholder Enemies.Add(new Enemy(SetIdEnemy(),   EnemyName.,     1f,         0));
+                Enemies.Add(new Enemy(SetIdEnemy(), EnemyName.Skull, 1f, 0));
                 foreach (Enemy Enemy in Enemies)
                 {
                     NumEnemiesAndBullets++;
@@ -51,8 +51,7 @@ public class LevelSchema : MonoBehaviour
         if(Enemies.Count <= 0)
         {
             return 0;
-        }else{
-            return Enemies.Count - 1 + 1;
         }
+        return Enemies.Count;
     }
 }

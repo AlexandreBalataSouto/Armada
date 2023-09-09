@@ -7,23 +7,15 @@ public class GameManager : MonoBehaviour
 {
     //The game manager duh...
     public static GameManager SharedInstance;
-
-    public int NumEnemiesAndBullets { get; private set; } = 0;
-    //Position
+    public int NumEnemiesAndBullets { get; private set; }
+    public Vector2 EndPositionEnemy { get; private set; }
+    [SerializeField] private EnemyPool _enemyPool;
+    [SerializeField] private LevelSchema _levelSchema;
+    [SerializeField] private SpawnPoints _spawnPoints;
     private Camera _cam;
     private Vector2 _startPositionEnemy;
-    public Vector2 EndPositionEnemy { get; private set; }
-    private float _positionCorrection = 4f;
-
-    //Enemy pool
-    [SerializeField] private EnemyPool _enemyPool;
+    private float _positionAux;
     private GameObject _enemy;
-
-    //Level schema
-    [SerializeField] private LevelSchema _levelSchema;
-
-    //SpawnEnemy
-    [SerializeField] private SpawnPoints _spawnPoints;
     private IEnumerator thisCoroutine;
     private int _indexEnemy = 0;
     private List<string> _enemyDestroyList = new List<string>();
@@ -38,10 +30,10 @@ public class GameManager : MonoBehaviour
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
         _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0);
+        _positionAux = Constants.GameManager.POSITION_AUX;
 
         //Set level
-        string level = SceneManager.GetActiveScene().name;
-        _levelSchema.SetLevelSchema(level);
+        _levelSchema.SetLevelSchema(SceneManager.GetActiveScene().name);
         NumEnemiesAndBullets = _levelSchema.NumEnemiesAndBullets;
 
          //Set enemies
@@ -49,14 +41,13 @@ public class GameManager : MonoBehaviour
     }
     
     private void Update() {
-        
         _startPositionEnemy = GetStartOrEndPosition(true);
         EndPositionEnemy = GetStartOrEndPosition(false);
         _spawnPoints.transform.position = new Vector2(_startPositionEnemy.x, 0); //TODO set spawnPoints position
     }
 
     private void Start() {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = Constants.GameManager.FRAME_RATE;
         thisCoroutine = SpawnEnemy();
         StartCoroutine(thisCoroutine);
     }
@@ -114,12 +105,12 @@ public class GameManager : MonoBehaviour
         if(flag)
         {
             newVector2Position = (Vector2)_cam.ScreenToWorldPoint(new Vector3(_cam.pixelWidth, 0, _cam.nearClipPlane));
-            newVector2Position.x += _positionCorrection;
+            newVector2Position.x += _positionAux;
             return newVector2Position;
 
         }else{
             newVector2Position = (Vector2)_cam.ScreenToWorldPoint(new Vector3(0, 0, _cam.nearClipPlane));
-            newVector2Position.x += _positionCorrection * -1;
+            newVector2Position.x += _positionAux * -1;
             return newVector2Position;
         }
     }

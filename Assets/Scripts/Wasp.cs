@@ -7,20 +7,23 @@ public class Wasp : MonoBehaviour
     //Enemy
     //Moves to one of the two points and start shooting
 
-    [SerializeField, Range(0f, 20f)] private float _speed = 10f;
+    private float _speed = 10f;
     private Vector2 _waspPosition;
     private bool _isInWaspPosition = false;
     //private GameObject bullet;
     private Bullet _bullet;
-    [SerializeField, Range(0f, 1f)] private float _fireRate = 0.25f;
-    private float _nextFire = 0.0f;
+    private float _fireRate;
+    private float _nextFire;
     private Transform _playerPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        _speed = Constants.Wasp.SPEED;
+        _fireRate = Constants.Wasp.FIRE_RATE;
+        _nextFire = 0f;
         _waspPosition = GetWaspPoint();
-        _playerPosition = GameObject.FindWithTag("Player").transform;
+        _playerPosition = GameObject.FindWithTag(Constants.Common.PLAYER).transform;
     }
 
     // Update is called once per frame
@@ -42,7 +45,7 @@ public class Wasp : MonoBehaviour
 
     private Vector2 GetWaspPoint()
     {
-        GameObject parentObject = GameObject.FindWithTag("StopPoints");
+        GameObject parentObject = GameObject.FindWithTag(Constants.Common.STOP_POINTS);
         int randomChildIndex = Random.Range(0, parentObject.transform.childCount);
         Transform randomChildTransform = parentObject.transform.GetChild(randomChildIndex);
         return randomChildTransform.position;
@@ -51,16 +54,14 @@ public class Wasp : MonoBehaviour
     private void Shoot()
     {
         //Get bullet
-        _bullet = ObjectPool.SharedInstance.GetPooledObject("BulletEnemy");
+        _bullet = ObjectPool.SharedInstance.GetPooledObject(Constants.Common.BULLET_ENEMY);
 
         if (_bullet != null)
         {
             //Direction/Position who shoot/Activate
             _bullet.transform.position = transform.position;
-            _bullet.Direction("Wasp", 10f, _playerPosition);
+            _bullet.Direction(Constants.Common.WASP, Constants.Bullet.WASP_SPEED, _playerPosition);
             _bullet.gameObject.SetActive(true);
         }
-
     }
-
 }

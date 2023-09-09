@@ -19,6 +19,8 @@ TagManager:
   - Flame_Kraken
   - Enemy_Catcher
   - Limit_Flame
+  - Up
+  - Down
   layers:
   - Default
   - TransparentFX

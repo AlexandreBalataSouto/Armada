@@ -5,9 +5,14 @@ public class Constants
     public class Common{
         public const string MAIN_CAMERA = "MainCamera";
         public const string PLAYER = "Player";
+        public const string SKULL = "Skull";
+        public const string WEIRD_SKULL = "Weird_Skull";
         public const string SPIDER = "Spider";
         public const string ORB = "Orb";
+        public const string KNIGHT = "Knight";
         public const string WASP = "Wasp";
+        public const string WARLOCK = "Warlock";
+        public const string KRAKEN = "Kraken";
         public const string LASER_ENEMY = "LaserEnemy";
         public const string FLAME_KRAKEN = "Flame_Kraken";
         public const string LIMIT = "Limit";
@@ -23,7 +28,15 @@ public class Constants
         public const string STOP_POINT_WARLOCK = "StopPoint_Warlock";
         public const string SPEAR = "Spear";
         public const string SHIELD = "Shield";
+        public const string UP = "Up";
+        public const string DOWN = "Down";
         public const int OBJECT_AMOUNT = 100;
+    }
+
+    public class GameManager{
+        public const float POSITION_AUX = 4f;
+        public const int FRAME_RATE = 60;
+        public const string LEVEL_01 = "Level01";
     }
     
     public class Player{
@@ -38,6 +51,8 @@ public class Constants
         public const float ORB_SHOOT_SPEED = 6f;
         public const float PLAYER_SPEED = 14f;
         public const float SPIDER_SPEED = 8f;
+        public const float WARLOCK_SPEED = 10f;
+        public const float WASP_SPEED = 10f;
     }
 
     public class Shield{
@@ -55,6 +70,11 @@ public class Constants
         public const float ANGLE = 1f;
         public const float RADIUS = 3f;
         public const float FIRE_RATE = 1f;
+    }
+
+    public class Wasp{
+        public const float SPEED = 10f;
+        public const float FIRE_RATE = 0.25f;
     }
 
     public class Kraken{
@@ -156,4 +176,12 @@ public class Constants
         new WarlockShield("WarlockShield_3", 0.25f, 3, 2f),
     };
 
+    public class WarlockTurret{
+        public const float SPEED = 4f;
+        public const float NEXT_FIRE = 0f;
+        public const float FIRE_RATE = 0.25f;
+        public const float TURRET_ROTATION_AUX = 90f;
+        public static readonly Vector3 TURRET_UP = new Vector3(-8, 4, 0); //Up
+        public static readonly Vector3 TURRET_DOWN = new Vector3(-8, -4, 0); //Down
+    }
 }
